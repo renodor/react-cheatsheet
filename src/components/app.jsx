@@ -1,9 +1,11 @@
 import React from 'react';
 
+import Html from './html';
+
 const App = () => {
   return (
     <div className="app">
-      <p>React + Redux starter</p>
+      <Html />
     </div>
   );
 };
