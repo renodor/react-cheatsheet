@@ -1,11 +1,15 @@
 import React from 'react';
 
+import Navbar from './navbar';
 import Html from './html';
 
 const App = () => {
   return (
     <div className="app">
-      <Html />
+      <Navbar />
+      <div className="main">
+        <Html />
+      </div>
     </div>
   );
 };

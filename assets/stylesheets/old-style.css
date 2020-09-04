@@ -1,0 +1,164 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin-top: 30px;
+  background-color: #F8F8F8;
+}
+
+a {
+  color: #4E768D;
+  font-weight: 600;
+}
+
+a:hover {
+  color: #95bad0;
+  text-decoration: none;
+}
+
+::selection {
+    background-color: #9b9b9b;
+    color: white;
+}
+
+section {
+  margin-bottom: 50px;
+}
+
+
+
+/* Nav */
+
+#page-nav {
+  width: 100%;
+}
+
+#page-nav a {
+  color: rgba(255,255,255,0.5);
+    transition: all 0.5s;
+    transition-delay: 0s;
+    border-radius: 5px;
+    padding: 18px;
+    font-weight: 600;
+}
+
+#page-nav a:hover{
+  color: #fff;
+    background: rgba(255,255,255,0.1);
+    transition: all 0.5s;
+    transition-delay: 0s;
+}
+
+#page-nav .nav a {
+  padding: 10px 30px;
+  font-weight: 300;
+}
+
+#page-nav .nav-link[aria-expanded]::after  {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Font Awesome 5 Pro";
+  font-weight: 400;
+  content: "\f107";
+  position: absolute;
+  right: 45px;
+  transition: all 0.2s;
+  transition-delay: 0s;
+}
+
+#page-nav .nav-link[aria-expanded="true"]::after {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+.sticky-top {
+  top: 10px;
+}
+
+@media(max-width: 767px) {
+  .navbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    border-radius: 0px;
+    box-shadow: 0px 5px 10px -8px #000;
+  }
+
+  #page-nav .nav-link {
+    text-align: center;
+  }
+
+  article {
+    margin-top: 45px;
+  }
+}
+
+.navbar-toggler {
+  margin: 5px auto 5px auto;
+
+}
+
+.menu-level-2 {
+  max-height: 56vh;
+    overflow-y: scroll;
+}
+
+.cool-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.cool-scrollbar::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+}
+
+.section-title::after {
+    content: '';
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.code-block {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.simple-code {
+  color: #D75139;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.centered-img {
+  display: block;
+  margin: 0 auto;
+}
+
+.code-block {
+  margin-bottom: 30px;
+}
+
+.key-stroke {
+  font-size: 12px;
+  color: #8c8a8a;
+  background-color: #eee;
+  border: 1px solid #8c8a8a;
+  padding: 2px;
+  border-radius: 4px;
+}

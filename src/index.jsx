@@ -7,6 +7,7 @@ import { createStore, combineReducers } from 'redux';
 // internal modules
 import App from './components/app';
 import '../assets/stylesheets/prism.css';
+import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
 // State and reducers
