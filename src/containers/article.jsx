@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Html from './html';
+import Html from '../components/html';
 
 class Article extends Component {
   componentWillMount() {
@@ -14,6 +14,6 @@ class Article extends Component {
       </div>
     );
   }
-};
+}
 
 export default Article;
