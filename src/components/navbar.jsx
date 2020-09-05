@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchSections } from '../actions/index';
 
-const Navbar = () => {
-  return (
-    <div className="navbar-container">
-      <div className="navbar">
-        <ul>
-          <li><Link className="section-link" to={'/html'}>HTML</Link></li>
-          <li><Link className="section-link" to={'/javascript'}>JS</Link></li>
-        </ul>
+class Navbar extends Component {
+  componentWillMount() {
+    this.props.fetchSections();
+  }
+
+  render() {
+    return (
+      <div className="navbar-container">
+        <div className="navbar">
+          <ul>
+            {
+              this.props.sections.map((section) => {
+                return <li key={section}><Link className="section-link" to={`/${section}`}>{`${section.toUpperCase()}`}</Link></li>;
+              })
+            }
+          </ul>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default Navbar;
+function mapStateToProps(state) {
+  return {
+    sections: state.sections,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchSections }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

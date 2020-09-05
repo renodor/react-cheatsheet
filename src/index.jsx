@@ -14,15 +14,17 @@ import '../assets/stylesheets/prism.css';
 import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
-const identityReducer = (state = null) => state;
+import sectionsReducer from './reducers/sections_reducer';
+
+// const identityReducer = (state = null) => state;
 
 const initialState = {
-  sections: ['html']
+  sections: []
 };
 
 // State and reducers
 const reducers = combineReducers({
-  sections: identityReducer
+  sections: sectionsReducer
 });
 
 // Middlewares
