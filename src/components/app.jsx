@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Navbar from './navbar';
-import Html from './html';
+import Article from './article';
 
 const App = () => {
   return (
     <div className="app">
       <Navbar />
       <div className="main">
-        <Html />
+        <Article />
       </div>
     </div>
   );
