@@ -19,7 +19,7 @@ import sectionsReducer from './reducers/sections_reducer';
 // const identityReducer = (state = null) => state;
 
 const initialState = {
-  sections: []
+  sections: {}
 };
 
 // State and reducers

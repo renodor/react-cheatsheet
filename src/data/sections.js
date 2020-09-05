@@ -1,3 +1,4 @@
-export default [
-  'html', 'javascript'
-];
+export default {
+  html: ['naming', 'HTML Boilerplate'],
+  javascript: null
+};

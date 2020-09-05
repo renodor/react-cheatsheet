@@ -9,14 +9,29 @@ class Navbar extends Component {
     this.props.fetchSections();
   }
 
+  displaySubsection = (subSections) => {
+    if (subSections) {
+      return (
+        <ul>
+          {subSections.map(subSection => <li key={subSection}>{subSection}</li>)}
+        </ul>);
+    }
+    return null;
+  }
+
   render() {
+    const sections = this.props.sections;
     return (
       <div className="navbar-container">
         <div className="navbar">
           <ul>
             {
-              this.props.sections.map((section) => {
-                return <li key={section}><Link className="section-link" to={`/${section}`}>{`${section.toUpperCase()}`}</Link></li>;
+              Object.keys(sections).map((section) => {
+                return (
+                  <li key={section}>
+                    <Link className="section-link" to={`/${section}`}>{`${section.toUpperCase()}`}</Link>
+                    {this.displaySubsection(sections[section])}
+                  </li>);
               })
             }
           </ul>
