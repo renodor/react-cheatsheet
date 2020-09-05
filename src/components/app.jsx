@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Navbar from './navbar';
-import Article from '../containers/article';
+import Main from '../containers/main';
 
 const App = (props) => {
   return (
     <div className="app">
       <Navbar />
       <div className="main">
-        <Article section={props.match.params.section} />
+        <Main selectedSection={props.match.params.section} />
       </div>
     </div>
   );
