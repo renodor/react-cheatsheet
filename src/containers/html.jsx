@@ -3,18 +3,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchSubSections } from '../actions/index';
 
-class Html extends Component {
-  componentWillMount() {
-    this.props.fetchSubSections(this.props.sectionName);
-  }
+import SubSections from './sub_sections';
 
+class Html extends Component {
   render() {
     return (
-      <div className="html-container">
+      <div className={`${this.props.sectionName}-container`}>
         <h1>{this.props.sectionName}</h1>
-        <div className="sub-section" id="html-naming">
-          <h2 className="sub-section-title">{this.props.subSections[1]}</h2>
-        </div>
+        <SubSections sectionName={this.props.sectionName} />
       </div>
     );
   }
