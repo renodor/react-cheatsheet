@@ -7,7 +7,7 @@ class Navbar extends Component {
     if (subSections) {
       return (
         <ul>
-          {subSections.map(subSection => <li key={subSection}><Link to={`/${section}#${section}-${subSection}`}>{subSection}</Link></li>)}
+          {subSections.map(subSection => <li key={subSection}><Link to={`/html#html-boilerplate`}>{subSection}</Link></li>)}
         </ul>);
     }
     return null;
