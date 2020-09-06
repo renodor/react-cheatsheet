@@ -5,10 +5,6 @@ import { connect } from 'react-redux';
 import { fetchSections } from '../actions/index';
 
 class Navbar extends Component {
-  componentWillMount() {
-    this.props.fetchSections();
-  }
-
   displaySubsection = (subSections) => {
     if (subSections) {
       return (
@@ -47,8 +43,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchSections }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(mapStateToProps)(Navbar);

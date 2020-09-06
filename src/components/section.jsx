@@ -1,12 +1,11 @@
 import React from 'react';
-
 import SubSections from '../containers/sub_sections';
 
-const Section = (props) => {
+const Section = ({ sectionName }) => {
   return (
-    <div className={`${props.sectionName}-container`}>
-      <h1>{props.sectionName}</h1>
-      <SubSections sectionName={props.sectionName} />
+    <div id="main" className={`${sectionName}-container`}>
+      <h1>{sectionName}</h1>
+      <SubSections sectionName={sectionName} />
     </div>
   );
 };

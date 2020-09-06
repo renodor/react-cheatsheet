@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchSubSections } from '../actions/index';
 
-import HtmlContent from '../components/html_content';
-import JavascriptContent from '../components/javascript_content';
+// Sections Contents
+import Html from '../components/sections_content/html';
+import Javascript from '../components/sections_content/javascript';
 
 class SubSections extends Component {
   componentWillMount() {
@@ -18,19 +19,22 @@ class SubSections extends Component {
   }
 
   subSectionsMapping = {
-    html: HtmlContent,
-    javascript: JavascriptContent
+    Html,
+    Javascript
   };
 
   render() {
-    const subSections = Array.from(this.props.subSections);
-    const SubSectionContent = this.subSectionsMapping[this.props.sectionName];
+    const { sectionName, subSections } = this.props;
+    const subSectionsArray = Array.from(subSections);
+    const sectionNameCapitalized = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+    const SubSectionContent = this.subSectionsMapping[sectionNameCapitalized];
+
     return (
-      subSections.map((subSection) => {
+      subSectionsArray.map((subSection) => {
         return (
-          <div key={subSection} id={`${this.props.sectionName}-${subSection}`}>
+          <div key={subSection} id={`${sectionName}-${subSection}`}>
             <h2 className="section-title">{subSection}</h2>
-            <div><SubSectionContent subSectionName={subSection} /></div>
+            <SubSectionContent subSectionName={subSection} />
           </div>
         );
       })

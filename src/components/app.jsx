@@ -7,9 +7,7 @@ const App = (props) => {
   return (
     <div className="app">
       <Navbar />
-      <div className="main">
-        <Section sectionName={props.match.params.section} />
-      </div>
+      <Section sectionName={props.match.params.section} />
     </div>
   );
 };

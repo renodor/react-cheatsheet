@@ -1,11 +1,11 @@
 import React from 'react';
 
-const HtmlContent = (props) => {
+const Html = (props) => {
   switch (props.subSectionName) {
     case 'naming': {
       return <div>Hello Naming</div>;
     }
-    case 'HTML Boilerplate': {
+    case 'html boilerplate': {
       return <div>Hello Boilerplate</div>;
     }
     default: {
@@ -14,4 +14,4 @@ const HtmlContent = (props) => {
   }
 };
 
-export default HtmlContent;
+export default Html;

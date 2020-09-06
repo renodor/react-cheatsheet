@@ -3,32 +3,38 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
-
+import logger from 'redux-logger';
 
 // internal modules
 import App from './components/app';
+
+// Style
 import '../assets/stylesheets/prism.css';
 import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
-import sectionsReducer from './reducers/sections_reducer';
+// Data
+import sections from './data/sections';
+
+// Reducers
 import subsectionsReducer from './reducers/sub_sections_reducer';
 
-// const identityReducer = (state = null) => state;
+const identityReducer = (state = null) => state;
+
+
+const reducers = combineReducers({
+  sections: identityReducer,
+  subSections: subsectionsReducer
+});
+
 
 const initialState = {
-  sections: {},
+  sections,
   subSections: {}
 };
 
-// State and reducers
-const reducers = combineReducers({
-  sections: sectionsReducer,
-  subSections: subsectionsReducer
-});
 
 // Middlewares
 const middlewares = applyMiddleware(logger);

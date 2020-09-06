@@ -1,4 +1,4 @@
 export default {
-  html: ['naming', 'HTML Boilerplate'],
+  html: ['naming', 'html boilerplate'],
   javascript: ['variables', 'math']
 };

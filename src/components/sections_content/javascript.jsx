@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JavascriptContent = (props) => {
+const Javascript = (props) => {
   switch (props.subSectionName) {
     case 'variables': {
       return <div>Hello Variables</div>;
@@ -14,4 +14,4 @@ const JavascriptContent = (props) => {
   }
 };
 
-export default JavascriptContent;
+export default Javascript;
