@@ -15,16 +15,19 @@ import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
 import sectionsReducer from './reducers/sections_reducer';
+import SubsectionsReducer from './reducers/sub_sections_reducer';
 
 // const identityReducer = (state = null) => state;
 
 const initialState = {
-  sections: {}
+  sections: {},
+  subSections: {}
 };
 
 // State and reducers
 const reducers = combineReducers({
-  sections: sectionsReducer
+  sections: sectionsReducer,
+  subSections: SubsectionsReducer
 });
 
 // Middlewares

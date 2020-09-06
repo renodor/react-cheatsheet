@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Navbar from './navbar';
+import Navbar from '../containers/navbar';
 import Main from '../containers/main';
 
 const App = (props) => {

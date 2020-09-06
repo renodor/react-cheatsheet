@@ -4,3 +4,20 @@
 // Define fonts for body and headers
 $headers-font: 'Dosis', sans-serif;
 $body-font: 'Open Sans', sans-serif;
+
+
+h1, h2 {
+  font-family: $headers-font;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 400;
+}

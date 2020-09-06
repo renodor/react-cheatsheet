@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Html from '../components/html';
+import Html from './html';
 import Javascript from '../components/javascript';
 
 class Main extends Component {
@@ -11,7 +11,7 @@ class Main extends Component {
 
   render() {
     const Section = this.sections[this.props.selectedSection];
-    return <Section />;
+    return <Section sectionName={this.props.selectedSection} />;
   }
 }
 
