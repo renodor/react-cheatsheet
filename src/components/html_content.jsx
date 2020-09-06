@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HtmlSubSections = (props) => {
+const HtmlContent = (props) => {
   switch (props.subSectionName) {
     case 'naming': {
       return <div>Hello Naming</div>;
@@ -14,4 +14,4 @@ const HtmlSubSections = (props) => {
   }
 };
 
-export default HtmlSubSections;
+export default HtmlContent;
