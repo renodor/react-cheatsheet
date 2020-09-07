@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+// eslint-disable-next-line object-curly-newline
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 import logger from 'redux-logger';
@@ -21,6 +22,7 @@ import sections from './data/sections';
 // Reducers
 import subsectionsReducer from './reducers/sub_sections_reducer';
 
+// eslint-disable-next-line arrow-body-style
 const identityReducer = (state = null) => state;
 
 const reducers = combineReducers({

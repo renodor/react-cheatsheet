@@ -3,14 +3,13 @@ import React from 'react';
 import Navbar from '../containers/navbar';
 import Section from './section';
 
-const App = (props) => {
+const App = ({ match }) => {
   return (
     <div className="app">
       <Navbar />
-      <Section sectionName={props.match.params.section} />
+      <Section sectionName={match.params.section} />
     </div>
   );
 };
 
 export default App;
-
