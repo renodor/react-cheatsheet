@@ -11,7 +11,7 @@ import logger from 'redux-logger';
 import App from './components/app';
 
 // Style
-import '../assets/stylesheets/prism.css';
+// import '../assets/stylesheets/prism.css';
 import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
@@ -23,18 +23,15 @@ import subsectionsReducer from './reducers/sub_sections_reducer';
 
 const identityReducer = (state = null) => state;
 
-
 const reducers = combineReducers({
   sections: identityReducer,
   subSections: subsectionsReducer
 });
 
-
 const initialState = {
   sections,
   subSections: {}
 };
-
 
 // Middlewares
 const middlewares = applyMiddleware(logger);

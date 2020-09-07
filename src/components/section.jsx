@@ -11,4 +11,3 @@ const Section = ({ sectionName }) => {
 };
 
 export default Section;
-

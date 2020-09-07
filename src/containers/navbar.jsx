@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink as Link } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
 class Navbar extends Component {
@@ -7,7 +7,7 @@ class Navbar extends Component {
     if (subSections) {
       return (
         <ul>
-          {subSections.map(subSection => <li key={subSection}><Link to={`/html#html-boilerplate`}>{subSection}</Link></li>)}
+          {subSections.map(subSection => <li key={subSection}><Link to={`/${section}#${subSection}`}>{subSection}</Link></li>)}
         </ul>);
     }
     return null;
