@@ -10,7 +10,7 @@ export class PrismCode extends Component {
     const { code, plugins, language } = this.props;
     return (
       <div>
-        <pre className={!plugins ? "" : plugins.join(" ")}>
+        <pre className={!plugins ? '' : plugins.join(' ')}>
           <code className={`language-${language}`}>
             {code.trim()}
           </code>
