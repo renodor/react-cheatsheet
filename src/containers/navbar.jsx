@@ -7,8 +7,16 @@ class Navbar extends Component {
     if (subSections) {
       return (
         <ul>
-          {subSections.map(subSection => <li key={subSection}><Link className="nav-link sub-section-link"to={`/${section}#${subSection}`}>{subSection}</Link></li>)}
-        </ul>);
+          {/* eslint-disable-next-line arrow-body-style */}
+          {subSections.map((subSection) => {
+            return (
+              <li key={subSection}>
+                <Link className="nav-link sub-section-link" to={`/${section}#${subSection}`}>{subSection}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      );
     }
     return null;
   }
@@ -19,12 +27,14 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar">
           <ul>
+            {/* eslint-disable-next-line arrow-body-style */}
             {Object.keys(sections).map((section) => {
               return (
                 <li key={section}>
                   <Link className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
                   {this.displaySubsection(section, sections[section])}
-                </li>);
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -35,7 +45,7 @@ class Navbar extends Component {
 
 function mapStateToProps(state) {
   return {
-    sections: state.sections,
+    sections: state.sections
   };
 }
 
