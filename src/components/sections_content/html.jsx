@@ -1,5 +1,5 @@
 import React from 'react';
-import PrismCode from '../prism_code.jsx';
+import PrismCode from '../prism_code';
 
 const code = `
 console.log('hello');
@@ -18,7 +18,7 @@ const Html = (props) => {
     case 'html-boilerplate': {
       return (
         <div>
-          <PrismCode code={code} language="js" />
+          <PrismCode code={code} language="js" plugins={["line-numbers"]} />
         </div>
       );
     }

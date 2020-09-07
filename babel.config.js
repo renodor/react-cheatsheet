@@ -1,4 +1,4 @@
-module.exports = function(api) {
+  module.exports = function(api) {
   const babelEnv = api.env();
   api.cache(true);
 
@@ -32,6 +32,12 @@ module.exports = function(api) {
     '@babel/plugin-syntax-import-meta',
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-json-strings',
+    ['prismjs', {
+      'languages': ['javascript', 'css', 'html'],
+      'plugins': ['line-numbers', 'copy-to-clipboard'],
+      'theme': 'okaidia',
+      'css': true
+    }]
   ];
 
   if (babelEnv === 'production') {

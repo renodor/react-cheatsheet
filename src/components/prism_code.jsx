@@ -7,13 +7,15 @@ export class PrismCode extends Component {
   }
 
   render() {
-    const { code, language } = this.props;
+    const { code, plugins, language } = this.props;
     return (
-      <pre>
-        <code className={`language-${language}`}>
-          {code.trim()}
-        </code>
-      </pre>
+      <div>
+        <pre className={!plugins ? "" : plugins.join(" ")}>
+          <code className={`language-${language}`}>
+            {code.trim()}
+          </code>
+        </pre>
+      </div>
     );
   }
 }
