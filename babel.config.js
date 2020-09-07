@@ -33,10 +33,10 @@
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-json-strings',
     ['prismjs', {
-      'languages': ['javascript', 'css', 'html'],
-      'plugins': ['line-numbers', 'copy-to-clipboard'],
-      'theme': 'okaidia',
-      'css': true
+      languages: ['javascript', 'css', 'html'],
+      plugins: ['line-numbers', 'copy-to-clipboard'],
+      theme: 'tomorrow',
+      css: true
     }]
   ];
 
