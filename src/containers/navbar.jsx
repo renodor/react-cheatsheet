@@ -7,7 +7,6 @@ class Navbar extends Component {
     if (subSections) {
       return (
         <ul>
-          {/* eslint-disable-next-line arrow-body-style */}
           {subSections.map((subSection) => {
             return (
               <li key={subSection}>
@@ -27,7 +26,6 @@ class Navbar extends Component {
       <div className="navbar-container">
         <div className="navbar">
           <ul>
-            {/* eslint-disable-next-line arrow-body-style */}
             {Object.keys(sections).map((section) => {
               return (
                 <li key={section}>

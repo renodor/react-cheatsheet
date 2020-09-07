@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchSubSections } from '../actions/index';
+import { fetchSubSections as actionFetchSubSections } from '../actions/index';
 
 // Sections Contents
 import Html from '../components/sections_content/html';
 import Javascript from '../components/sections_content/javascript';
 
 class SubSections extends Component {
-  componentWillMount() {
-    this.props.fetchSubSections(this.props.sectionName);
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillMount() {
+    const { sectionName, fetchSubSections } = this.props;
+    fetchSubSections(sectionName);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.sectionName !== this.props.sectionName) {
-      this.props.fetchSubSections(nextProps.sectionName);
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { sectionName, fetchSubSections } = this.props;
+    if (nextProps.sectionName !== sectionName) {
+      fetchSubSections(nextProps.sectionName);
     }
   }
 
@@ -44,12 +48,14 @@ class SubSections extends Component {
 
 function mapStateToProps(state) {
   return {
-    subSections: state.subSections,
+    subSections: state.subSections
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchSubSections }, dispatch);
+  return bindActionCreators({
+    fetchSubSections: actionFetchSubSections
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubSections);
