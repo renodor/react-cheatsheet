@@ -7,7 +7,7 @@ class Navbar extends Component {
     if (subSections) {
       return (
         <ul>
-          {subSections.map(subSection => <li key={subSection}><Link to={`/${section}#${subSection}`}>{subSection}</Link></li>)}
+          {subSections.map(subSection => <li key={subSection}><Link className="nav-link sub-section-link"to={`/${section}#${subSection}`}>{subSection}</Link></li>)}
         </ul>);
     }
     return null;
@@ -22,7 +22,7 @@ class Navbar extends Component {
             {Object.keys(sections).map((section) => {
               return (
                 <li key={section}>
-                  <Link className="section-link" to={`/${section}`}>{`${section.toUpperCase()}`}</Link>
+                  <Link className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
                   {this.displaySubsection(section, sections[section])}
                 </li>);
             })}

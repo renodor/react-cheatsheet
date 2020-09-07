@@ -11,17 +11,25 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      .section-link {
+      .nav-link {
         display: block;
-        padding: 20px;
-        color: white;
         opacity: 0.6;
         border-radius: 5px;
+        color: white;
         transition: all .5s ease;
         &:hover {
           opacity: 1;
           background: rgba(255,255,255,0.1);
         }
+      }
+      .section-link {
+        padding: 20px;
+        text-transform: uppercase;
+      }
+      .sub-section-link {
+        padding: 10px 30px;
+        text-transform: capitalize;
+        font-weight: 400;
       }
     }
   }
