@@ -1,4 +1,11 @@
 import React from 'react';
+import PrismCode from '../prism_code.jsx';
+
+const code = `
+console.log('hello');
+const myF = () => {
+  'yeaaah'
+}`;
 
 const Html = (props) => {
   switch (props.subSectionName) {
@@ -8,8 +15,12 @@ const Html = (props) => {
           Hello Naming
         </div>);
     }
-    case 'html boilerplate': {
-      return <div>Hello Boilerplate</div>;
+    case 'html-boilerplate': {
+      return (
+        <div>
+          <PrismCode code={code} language="js" />
+        </div>
+      );
     }
     default: {
       return 'nada';

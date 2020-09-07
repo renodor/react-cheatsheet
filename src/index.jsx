@@ -12,7 +12,7 @@ import logger from 'redux-logger';
 import App from './components/app';
 
 // Style
-// import '../assets/stylesheets/prism.css';
+import '../assets/stylesheets/prism.css';
 import '../assets/stylesheets/old-style.css';
 import '../assets/stylesheets/application.scss';
 
