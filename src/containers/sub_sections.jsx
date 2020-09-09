@@ -36,7 +36,7 @@ class SubSections extends Component {
     return (
       subSectionsArray.map((subSection) => {
         return (
-          <div key={subSection} id={subSection}>
+          <div key={subSection} id={subSection} className="sub-section">
             <h2 className="sub-section-title">{subSection}</h2>
             <SubSectionContent subSectionName={subSection} />
           </div>

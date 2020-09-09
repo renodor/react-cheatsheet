@@ -1,0 +1,24 @@
+div.code-toolbar > .toolbar {
+  top: 10px;
+  right: 10px;
+  .toolbar-item button {
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #2D2D2D;
+    opacity: 0.7;
+    transition: opacity .5s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.inline-code {
+  color: #D75139;
+  font-weight: 600;
+  font-style: italic;
+}
