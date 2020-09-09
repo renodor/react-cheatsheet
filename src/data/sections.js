@@ -1,4 +1,4 @@
 export default {
-  html: ['naming', 'html-boilerplate', 'html-tables'],
+  html: ['naming', 'boilerplate', 'tables', 'forms'],
   javascript: ['variables', 'math']
 };

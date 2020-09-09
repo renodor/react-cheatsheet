@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Prism from 'prismjs';
 
-export class PrismCode extends Component {
+class PrismCode extends Component {
   componentDidMount() {
     Prism.highlightAll();
   }
@@ -9,13 +9,11 @@ export class PrismCode extends Component {
   render() {
     const { code, plugins, language } = this.props;
     return (
-      <div>
-        <pre className={!plugins ? '' : plugins.join(' ')}>
-          <code className={`language-${language}`}>
-            {code.trim()}
-          </code>
-        </pre>
-      </div>
+      <pre className={!plugins ? '' : plugins.join(' ')}>
+        <code className={`language-${language}`}>
+          {code.trim()}
+        </code>
+      </pre>
     );
   }
 }
