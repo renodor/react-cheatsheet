@@ -1,31 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
-import { connect } from 'react-redux';
 
-class NavbarSubSections extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { collapsed: false };
-  }
-
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.section === nextProps.selectedSection) {
-      this.setState({
-        collapsed: true
-      });
-    } else {
-      this.setState({
-        collapsed: false
-      });
-    }
-  }
-
-  render() {
-    const { section, subSections } = this.props;
+const NavbarSubSections = ({ section, subSections, selectedSection }) => {
+  if (section === selectedSection) {
     return (
-      <ul className={`nav-sub-links ${this.state.collapsed ? 'collapsed' : ''}`}>
+      <ul className="nav-sub-links">
         {subSections.map((subSection) => {
           return (
             <li key={subSection}>
@@ -36,12 +15,7 @@ class NavbarSubSections extends Component {
       </ul>
     );
   }
-}
+  return null;
+};
 
-function mapStateToProps(state) {
-  return {
-    sections: state.sections
-  };
-}
-
-export default connect(mapStateToProps)(NavbarSubSections);
+export default NavbarSubSections;
