@@ -1,4 +1,4 @@
-/* eslint-disable max-len, react/jsx-one-expression-per-line */
+/* eslint-disable max-len, react/jsx-one-expression-per-line, react/no-unescaped-entities */
 
 import React from 'react';
 import PrismCode from '../prism_code';
@@ -87,6 +87,7 @@ const code = {
 <form action="/example.html" method="POST">
   <label for="meal">What do you want to eat?</label>
   <input type="text" name="food" value="Already pre-filled" id="meal">
+  <input type="submit" value="Submit">
 </form>`,
 
     select: `
@@ -99,11 +100,12 @@ const code = {
       <option value="pizza">Ramen</option>
       <option value="pizza">Tacos</option>
     </select>
+    <input type="submit" value="Submit">
 </form>`,
 
     datalist: `
 <form action="/example.html">
-<label for="city">Ideal city to visit?</label>
+  <label for="city">Ideal city to visit?</label>
   <input type="text" list="cities" id="city" name="city">
   <datalist id="cities">
     <option value="New Yor City"></option>
@@ -112,6 +114,7 @@ const code = {
     <option value="Mexico"></option>
     <option value="Bandol"></option>
   </datalist>
+  <input type="submit" value="Submit">
 </form>`
   }
 };
@@ -141,25 +144,54 @@ const Html = (props) => {
         <div>
           <p>A form is defined by a <Ic code="<form>" /> tag. Inside you define :</p>
           <ul>
-            <li>An <Ic code="action" /> : where to send the info</li>
+            <li>An <Ic code="action" /> : where to send the form data when submited</li>
             <li>A <Ic code="method" /> : the HTTP request type (GET, POST, PUT, PATCH, DELETE)</li>
           </ul>
           <PrismCode code={code.forms.form} language={language} />
           <p><Ic code="<input>" /> tags allows to create fields where visitors can type information. Input tags must have different attributes:</p>
           <ul>
-            <li>name = that is how you will identify it when the form is send</li>
-            <li>value = the value of the field & the placeholder value before the user type it (will be paired with the name).</li>
-            <li>type = determine how it will render :
+            <li><Ic code="name" /> : that is how you will identify it when the form is send</li>
+            <li><Ic code="value" /> : the value of the field & the placeholder value before the user type it (will be paired with the name).</li>
+            <li><Ic code="type" /> : determine how it will render :
               <ul>
-                <li>text = normal text field</li>
-                <li>password = field where what you type is hidden</li>
-                <li>number = restrict to number. You can add attributes:</li>
+                <li><Ic code="text" /> : normal text field</li>
+                <li><Ic code="password" /> : field where what you type is hidden</li>
+                <li><Ic code="number" /> : restrict to number. You can add attributes:</li>
+                <ul>
+                  <li><Ic code="step=1" /> : will create arrows inside the input and allows the user to increase/decrease numbers 1 by 1</li>
+                </ul>
               </ul>
             </li>
-            <li>name = that is how you will identify it when the form is send</li>
-            <li>name = that is how you will identify it when the form is send</li>
-            <li>name = that is how you will identify it when the form is send</li>
-            <li>name = that is how you will identify it when the form is send</li>
+            <li><Ic code="range" /> : will create a slider. You can add attributes:
+              <ul>
+                <li><Ic code="min" /></li>
+                <li><Ic code="max" /></li>
+                <li><Ic code="step" /></li>
+              </ul>
+            </li>
+            <li><Ic code="checkbox" /> don't forget to put a value! (it will be invisible but this is what will be send to the form). And then to associate it to a label (so the user knows what this checkbox correspond to)</li>
+            <li><Ic code="radio" /> : to group radio together they must have the same name (and thus you can only select one)</li>
+            <li><Ic code="text" /> and <Ic code="list=id" /> = will pair the input to a datalist with the same id</li>
+            <li><Ic code="submit" /> : the "value" will be the displayed text. When clicked, it will trigger the form action</li>
+          </ul>
+          <p><Ic code="label" /> tags are paired with input and serve as their "display name". You pair label with an input thanks to the attribute <Ic code="for" />:</p>
+          <ul>
+            <li>The input must have an <Ic code="id" />, and the label must have the same <Ic code="for" /></li>
+            <li>Important when using checkbox or radio button. Because when you click on the label it will check the box</li>
+          </ul>
+          <PrismCode code={code.forms.input} language={language} />
+          <p><Ic code="<select>" /> tag allows you to create dropdown lists. Inside the select tags you need <Ic code="<options>" /> tags each with a value with your different options:</p>
+          <ul>
+            <li>The <Ic code="value" /> of <Ic code="<option>" /> is the text that will be send to the form</li>
+            <li>The text between the opening and closing <Ic code="<options>" /> tag is the displayed text</li>
+          </ul>
+          <PrismCode code={code.forms.select} language={language} />
+          <p><Ic code="<datalist>" /> tag also create a dropdown but inside a text field, so that users can type into it to easily find options. Inside the datalist you put <Ic code="<options>" /> tags. The <Ic code="<input>" /> tag where the <Ic code="<datalist>" /> is must have a <Ic code="list" /> attribute with the value of the datalist id</p>
+          <PrismCode code={code.forms.datalist} language={language} />
+          <p><Ic code="<textarea>" /> tags are used to create a bigger text field. If you want a default text you need to include it between the opening and closing textarea tags. This field can take arguments:</p>
+          <ul>
+            <li><Ic code="rows" /> : determine the width of the field</li>
+            <li><Ic code="cols" /> :  determine the height</li>
           </ul>
         </div>
       );
