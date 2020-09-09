@@ -5,7 +5,7 @@ import { fetchSubSections as actionFetchSubSections } from '../actions/index';
 
 // Sections Contents
 import Html from '../components/sections_content/html';
-import Javascript from '../components/sections_content/javascript';
+import Css from '../components/sections_content/css';
 
 class SubSections extends Component {
   // eslint-disable-next-line camelcase
@@ -24,7 +24,7 @@ class SubSections extends Component {
 
   subSectionsMapping = {
     Html,
-    Javascript
+    Css
   };
 
   render() {

@@ -119,8 +119,8 @@ const code = {
   }
 };
 
-const Html = (props) => {
-  switch (props.subSectionName) {
+const Html = ({ subSectionName }) => {
+  switch (subSectionName) {
     case 'naming': {
       return (
         <div><PrismCode code={code.naming} language={language} /></div>
