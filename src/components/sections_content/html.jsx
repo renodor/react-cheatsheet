@@ -7,7 +7,7 @@ import { InlineCode as Ic } from '../inline_code';
 const language = 'markup';
 
 const code = {
-  naming: '<tag attribute(name)="attribute(value)"> content </tag>',
+  naming: '<tag attribute(name)="attribute(value)">content</tag>',
 
   boilerplate: `
 <!doctype html>
