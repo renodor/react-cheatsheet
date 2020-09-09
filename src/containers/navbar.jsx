@@ -2,22 +2,18 @@ import React, { Component } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
+import NavBarSubSections from './navbar_sub_sections';
+
 class Navbar extends Component {
-  displaySubsection = (section, subSections) => {
-    if (subSections) {
-      return (
-        <ul>
-          {subSections.map((subSection) => {
-            return (
-              <li key={subSection}>
-                <Link className="nav-link sub-section-link" to={`/${section}#${subSection}`}>{subSection}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      );
-    }
-    return null;
+  constructor(props) {
+    super(props);
+    this.state = { clicked: false };
+  }
+
+  handleClick = () => {
+    this.setState({
+      clicked: !this.state.clicked
+    });
   }
 
   render() {
@@ -29,8 +25,8 @@ class Navbar extends Component {
             {Object.keys(sections).map((section) => {
               return (
                 <li key={section}>
-                  <Link className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
-                  {this.displaySubsection(section, sections[section])}
+                  <Link onClick={this.handleClick} className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
+                  <NavBarSubSections selectedSection={this.props.selectedSection} section={section} subSections={sections[section]} />
                 </li>
               );
             })}

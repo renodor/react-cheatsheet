@@ -6,7 +6,7 @@ import Section from './section';
 const App = ({ match }) => {
   return (
     <div className="app">
-      <Navbar />
+      <Navbar selectedSection={match.params.section} />
       <Section sectionName={match.params.section} />
     </div>
   );

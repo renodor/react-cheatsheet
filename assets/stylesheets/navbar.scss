@@ -8,6 +8,12 @@
     padding: 10px;
     background-color: #151515;
     ul {
+      .nav-sub-links {
+        display: none;
+        &.collapsed {
+          display: block;
+        }
+      }
       list-style: none;
       padding: 0;
       margin: 0;
