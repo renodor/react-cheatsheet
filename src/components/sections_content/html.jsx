@@ -76,7 +76,44 @@ const code = {
          <td>xxx</td>
       </tr>
    </tfoot>
-</table>`
+</table>`,
+
+  forms: {
+    form: `
+<form action="/example.html" method="POST">
+</form>`,
+
+    input: `
+<form action="/example.html" method="POST">
+  <label for="meal">What do you want to eat?</label>
+  <input type="text" name="food" value="Already pre-filled" id="meal">
+</form>`,
+
+    select: `
+<form action="/example.html">
+    <label for="lunch">What's for lunch?</label>
+    <select name="lunch" id="lunch">
+      <option value="pizza">Pizza</option>
+      <option value="pizza">Curry</option>
+      <option value="pizza">Salad</option>
+      <option value="pizza">Ramen</option>
+      <option value="pizza">Tacos</option>
+    </select>
+</form>`,
+
+    datalist: `
+<form action="/example.html">
+<label for="city">Ideal city to visit?</label>
+  <input type="text" list="cities" id="city" name="city">
+  <datalist id="cities">
+    <option value="New Yor City"></option>
+    <option value="Tokyo"></option>
+    <option value="Barcelona"></option>
+    <option value="Mexico"></option>
+    <option value="Bandol"></option>
+  </datalist>
+</form>`
+  }
 };
 
 const Html = (props) => {
@@ -103,7 +140,27 @@ const Html = (props) => {
       return (
         <div>
           <p>A form is defined by a <Ic code="<form>" /> tag. Inside you define :</p>
-          <PrismCode code={code.tables} language={language} />
+          <ul>
+            <li>An <Ic code="action" /> : where to send the info</li>
+            <li>A <Ic code="method" /> : the HTTP request type (GET, POST, PUT, PATCH, DELETE)</li>
+          </ul>
+          <PrismCode code={code.forms.form} language={language} />
+          <p><Ic code="<input>" /> tags allows to create fields where visitors can type information. Input tags must have different attributes:</p>
+          <ul>
+            <li>name = that is how you will identify it when the form is send</li>
+            <li>value = the value of the field & the placeholder value before the user type it (will be paired with the name).</li>
+            <li>type = determine how it will render :
+              <ul>
+                <li>text = normal text field</li>
+                <li>password = field where what you type is hidden</li>
+                <li>number = restrict to number. You can add attributes:</li>
+              </ul>
+            </li>
+            <li>name = that is how you will identify it when the form is send</li>
+            <li>name = that is how you will identify it when the form is send</li>
+            <li>name = that is how you will identify it when the form is send</li>
+            <li>name = that is how you will identify it when the form is send</li>
+          </ul>
         </div>
       );
     }
