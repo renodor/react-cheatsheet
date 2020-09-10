@@ -14,7 +14,7 @@ class Navbar extends Component {
             {Object.keys(sections).map((section) => {
               return (
                 <li key={section}>
-                  <Link onClick={this.handleClick} className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
+                  <Link className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
                   <NavbarSubSections
                     section={section}
                     subSections={sections[section]}

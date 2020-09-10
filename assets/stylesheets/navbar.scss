@@ -5,19 +5,24 @@
   padding: 10px;
   background-color: #151515;
   ul {
-    .nav-sub-links {
-      max-height: 55vh;
-      overflow-y: scroll;
-      &::-webkit-scrollbar {
-        width: 2px;
-      }
-      &::-webkit-scrollbar-thumb {
-        background: #4a4a4a;
-      }
-    }
     list-style: none;
     padding: 0;
     margin: 0;
+    .navbar-sub-sections {
+      height: 0;
+      overflow: hidden;
+      transition: height .5s ease;
+      .nav-sub-links {
+        max-height: 55vh;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 2px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #4a4a4a;
+        }
+      }
+    }
     .nav-link {
       display: block;
       opacity: 0.6;
