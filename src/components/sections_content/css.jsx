@@ -103,7 +103,7 @@ h1 {
 
   gridExampleHtml: `
 <div class="container">
-  <header>Wielcom!</header>
+  <header>Welcom!</header>
   <nav>Links</nav>
   <section class="info">Info!</section>
   <section class="services">Services!</section>
@@ -419,32 +419,94 @@ const Css = ({ subSectionName }) => {
           <p>You can also use one propriety for <b>both rows and columns:</b> <samp>colums: grid-template</samp></p>
           <PrismCode code={code.gridTemplate} language={language} />
           <p>(Before the / are rows, after are columns)</p>
-          <p><b>Fractions:</b> the <samp>fr'}</samp> unit define the size of columns and rows as a fraction of grid length.</p>
+          <p><b>Fractions:</b> the <samp>fr</samp> unit define the size of columns and rows as a fraction of grid length.</p>
           <p><u>Ex:</u> <samp>grid-template: 2fr 1fr 1fr / 1fr 3fr 1fr</samp> >>> first row will be 2/4 of the grid, second row 1/4, third row 1/4. First column will be 1/5, second 3/5, third 1/5.</p>
           <p>(If you use fr combined with other units ; the fr will represent a fraction of the available space.)</p>
           <p><b>Repeat:</b> You can use the repeat fonction like that: <samp>grid-template-columns: repeat(3, 100px)</samp> >>> is the same as writting : <samp>grid-template-columns: 100px 100px 100px</samp></p>
           <p><b>Minmax:</b> <samp>grid-template-columns: 100px minmax(100px, 500px) 100px</samp> >>> the 2nd column will vary between 100px and 500px depending on the size of the overall grid. (For minmax to work your grid can't have a fixed size).</p>
           <p><b>Grid Gap:</b></p>
           <ul>
-            <li><samp>grid-row-gap: 10px'}</samp> will add 10px between your rows</li>
-            <li><samp>grid-column-gap: 10px'}</samp> will add 10px between your columns</li>
-            <li><samp>grid-gap: 20px 10px'}</samp> will add 20px between rows and 10px between columns</li>
+            <li><samp>grid-row-gap: 10px</samp> will add 10px between your rows</li>
+            <li><samp>grid-column-gap: 10px</samp> will add 10px between your columns</li>
+            <li><samp>grid-gap: 20px 10px</samp> will add 20px between rows and 10px between columns</li>
           </ul>
           <p><b>Grid items:</b></p>
-          <p><samp>grid-row-start'}</samp> and <samp>grid-row-end'}</samp> make a single grid items take up multiple rows. Same for <samp>grid-column-start'}</samp> and <samp>grid-column-end'}</samp>.</p>
+          <p><samp>grid-row-start</samp> and <samp>grid-row-end</samp> make a single grid items take up multiple rows. Same for <samp>grid-column-start</samp> and <samp>grid-column-end</samp>.</p>
           <PrismCode code={code.gridItem} language={language} />
           <p>>>> The element .item will starts at row 1 and stops at row 3 (so it will take the space of 2 rows). Same for columns.</p>
-          <p>You can also use it like that: <samp>grid-row: 1 / 3'}</samp> and <samp>grid-column: 1 / 3'}</samp> >>> Will start at 1 and stop at 3.</p>
-          <p>You can also use the span kw: <samp>grid-column: 4 / span 2</samp> >>> means item will starts at column 4 and take 2 spaces. (So stops at 6).</p>
+          <p>You can also use it like that: <samp>grid-row: 1 / 3</samp> and <samp>grid-column: 1 / 3</samp> >>> Will start at 1 and stop at 3.</p>
+          <p>You can also use the <samp>span</samp> kw: <samp>grid-column: 4 / span 2</samp> >>> means item will starts at column 4 and take 2 spaces. (So stops at 6).</p>
           <p>So all the following statements are exactly the same:</p>
           <ul>
             <li><samp>grid-column: 4 / span 2</samp></li>
             <li><samp>grid-column: 4 / 6</samp></li>
             <li><samp>grid-column-start: span 2; grid-column-end: 6</samp></li>
           </ul>
-          <p><b>Grid area:</b> <samp>grid-area: w / x / y / z'}</samp> allows you to define all your rows and columns at the same time:</p>
+          <p><b>Grid area:</b> <samp>grid-area: w / x / y / z</samp> allows you to define all your rows and columns at the same time:</p>
           <ul>
             <li>w = grid-row-start</li>
+            <li>x = grid-column-start</li>
+            <li>y = grid-row-end</li>
+            <li>z = grid-column-end</li>
+          </ul>
+          <p>So <samp>grid-area: 2 / 3 / 4 / span 5;</samp> >>> means this item will start at row 2 and end at row 4. It will start at column 3 and take 5 column space.</p>
+          <p><b>Grid template areas:</b> <samp>grid-template-areas</samp> property allows you to name sections of your webpage to use it as values of a grid.</p>
+          <u>Example:</u>
+          <PrismCode code={code.gridExampleHtml} language='markup' />
+          <PrismCode code={code.gridExampleCss} language={language} />
+          <p>With this code you build the following grid:</p>
+          <ul>
+            <li>head will take 1st row and 2 columns</li>
+            <li>nav will take 2nd row and 2 columns</li>
+            <li>info will take 3rd row and left column</li>
+            <li>service will take 3rd row and right column</li>
+            <li>footer will take 4th row and 2 columns</li>
+          </ul>
+          <p>(Don't forget to declare each elements with the grid-area propriety)</p>
+          <p><b>Justify Items:</b> allows you to align items horizontally inside the grid area.<br /><b>Align Items:</b> allows you to align items vertically inside the grid area.<br />Both can take following values:</p>
+          <ul>
+            <li><samp>start</samp> : align items to the left / top of the grid area</li>
+            <li><samp>end</samp> : align items to the right / bottom of the grid area</li>
+            <li><samp>center</samp> : align items to the center of the grid area</li>
+            <li><samp>stretch</samp> : stretch all items to fill the grid area</li>
+            <li>... <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout#Justifying_Items_on_the_Inline_or_Row_Axis" target="_blank" rel="noreferrer">and more</a></li>
+          </ul>
+          <p><b>Justify Content:</b> allows to position an entire grid horizontally within its parent element.<br /><b>Align Content:</b> allows to position an entire grid vertically within its parent element.<br />Both can take following values:</p>
+          <ul>
+            <li><samp>start</samp> : align the grid to the left / top of the grid container</li>
+            <li><samp>end</samp> : align the grid to the right / top of the grid container</li>
+            <li><samp>center</samp> : align the grid to the center of the grid container</li>
+            <li><samp>stretch</samp> : stretch the grid items to increase the size of the grid to expand horizontally / vertically across the container</li>
+            <li><samp>space-around</samp> : includes an equal amount of space on each side of a grid element (resulting in double the amount of space between elements as there is before the first and after the last element)</li>
+            <li><samp>space-between</samp> : includes an equal amount of space between grid items but no space at either end</li>
+            <li><samp>space-evenly</samp> : places an even amount of space between grid items and at either end</li>
+            <li>... <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Box_Alignment_in_CSS_Grid_Layout#Aligning_the_grid_tracks_on_the_block_or_column_axis" target="_blank" rel="noreferrer">and more</a></li>
+          </ul>
+          <p><b>Justify Self and Align Self:</b></p>
+          <ul>
+            <li><samp>justify-self</samp> : specifies how an individual element should position itself horizontally</li>
+            <li><samp>align-self</samp> : specifies how an individual element should position itself vertically</li>
+            <li>It can take similar values than <samp>align-items</samp> and <samp>justify-items</samp></li>
+            <li>It will override <samp>align-items</samp> or <samp>justify-items</samp></li>
+          </ul>
+          <p><b>Implicit Grid</b></p>
+          <p>If you can't define in advance how many rows/columns you will have on your grid, the implicit grid takes over. Default rules of the implicit grid are:</p>
+          <ul>
+            <li>Items fill up rows first, adding new rows as necessary</li>
+            <li>New grid rows will only be tall enough to contain the content within them</li>
+          </ul>
+          <p>You can modify those default behaviors with the following proprieties:</p>
+          <ul>
+            <li><samp>grid-auto-rows</samp> : specifies the height of implicitly added grid rows</li>
+            <li><samp>grid-auto-columns</samp> : specifies the width of implicitly added grid columns</li>
+            <li>It can take <samp>px</samp>, <samp>%</samp>, <samp>fr</samp> and the <samp>repeat()</samp> function</li>
+          </ul>
+          <p>With <samp>grid-auto-flow</samp> you can also specify if you want new elements to be added to rows or columns. It can takes following values:</p>
+          <ul>
+            <li><samp>row</samp> : new elements should fill rows from left to right and create new rows when there are too many elements (default)</li>
+            <li><samp>column</samp> : new elements should fill columns from top to bottom and create new columns when there are too many elements</li>
+            <li><samp>dense</samp> : invokes an algorithm that attempts to fill holes earlier in the grid layout if smaller elements are added</li>
+            <li>You can pair <samp>row</samp> and <samp>column</samp> with <samp>dense</samp> : <samp>grid-auto-flow: row dense;</samp></li>
           </ul>
         </div>
       );
