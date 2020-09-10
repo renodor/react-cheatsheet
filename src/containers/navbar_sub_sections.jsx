@@ -4,8 +4,8 @@ import { HashLink as Link } from 'react-router-hash-link';
 class NavbarSubSections extends Component {
   componentWillReceiveProps(nextProps) {
     const { section, subSections, selectedSection } = this.props;
-    if (nextProps.selectedSection === section && this.divElement) {
-      console.log(this.divElement.clientHeight);
+    if (nextProps.selectedSection === section && this.navSubLinks) {
+      this.navSubLinks.parentNode.style = `height: ${this.navSubLinks.clientHeight}px`;
     }
   }
 
@@ -14,7 +14,7 @@ class NavbarSubSections extends Component {
     if (section === selectedSection) {
       return (
         <div className="navbar-sub-sections">
-          <ul ref={(divElement) => { this.divElement = divElement; }} className="nav-sub-links">
+          <ul ref={(navSubLinks) => { this.navSubLinks = navSubLinks; }} className="nav-sub-links">
             {subSections.map((subSection) => {
               return (
                 <li key={subSection}>
