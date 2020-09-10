@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PrismCode from '../prism_code';
-import { InlineCode as Ic } from '../inline_code';
 
 const language = 'language';
 
@@ -16,7 +15,7 @@ const SectionName = ({ subSectionName }) => {
       return (
         <div>
           <p>Hello Sub section1</p>
-          <Ic code="inline-code" />
+          <samp>"inline-code"</samp>
           <PrismCode code={code.subSection} language={language} />
         </div>
       );
