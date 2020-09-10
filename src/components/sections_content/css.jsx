@@ -435,6 +435,18 @@ const Css = ({ subSectionName }) => {
           <p><Ic code="grid-row-start" /> and <Ic code="grid-row-end" /> make a single grid items take up multiple rows. Same for <Ic code="grid-column-start" /> and <Ic code="grid-column-end" />.</p>
           <PrismCode code={code.gridItem} language={language} />
           <p>>>> The element .item will starts at row 1 and stops at row 3 (so it will take the space of 2 rows). Same for columns.</p>
+          <p>You can also use it like that: <Ic code="grid-row: 1 / 3" /> and <Ic code="grid-column: 1 / 3" /> >>> Will start at 1 and stop at 3.</p>
+          <p>You can also use the span kw: <Ic code="grid-column: 4 / span 2;" /> >>> means item will starts at column 4 and take 2 spaces. (So stops at 6).</p>
+          <p>So all the following statements are exactly the same:</p>
+          <ul>
+            <li><Ic code="grid-column: 4 / span 2;" /></li>
+            <li><Ic code="grid-column: 4 / 6;" /></li>
+            <li><Ic code="grid-column-start: span 2; grid-column-end: 6;" /></li>
+          </ul>
+          <p><b>Grid area:</b> <Ic code="grid-area: w / x / y / z" /> allows you to define all your rows and columns at the same time:</p>
+          <ul>
+            <li>w = grid-row-start</li>
+          </ul>
         </div>
       );
     }
