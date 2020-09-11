@@ -22,7 +22,7 @@ class NavbarSection extends Component {
 
     return (
       <li key={section}>
-        <button type="button" onClick={this.handleClick} className="nav-link section-link">{section}</button>
+        <button type="button" onClick={this.handleClick} aria-expended={activeNavbarSection === section} className="nav-link section-link">{section}</button>
         <NavbarSubSections
           section={section}
           subSections={subSections}
