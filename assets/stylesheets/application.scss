@@ -5,13 +5,11 @@
 @import 'sections';
 
 
-* {
-  font-family: $body-font;
+body {
   font-size: 1rem;
   line-height: 1.5;
+  font-family: $body-font;
   color: #212529;
-  background-color: initial;
-  border: none;
 }
 
 .app {
