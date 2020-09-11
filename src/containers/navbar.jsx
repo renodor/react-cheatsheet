@@ -1,32 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import NavbarSection from './navbar_section';
 
-class Navbar extends Component {
-
-  render() {
-    const { sections, selectedSection } = this.props;
-    return (
-      <div className="navbar-container">
-        <div className="navbar">
-          <ul>
-            {Object.keys(sections).map((section) => {
-              return (
-                <NavbarSection
-                  key={section}
-                  section={section}
-                  subSections={sections[section]}
-                  selectedSection={selectedSection}
-                />
-              );
-            })}
-          </ul>
-        </div>
+const Navbar = ({ sections, selectedSection }) => {
+  return (
+    <div className="navbar-container">
+      <div className="navbar">
+        <ul>
+          {Object.keys(sections).map((section) => {
+            return (
+              <NavbarSection
+                key={section}
+                section={section}
+                subSections={sections[section]}
+                selectedSection={selectedSection} />
+            );
+          })}
+        </ul>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 function mapStateToProps(state) {
   return {

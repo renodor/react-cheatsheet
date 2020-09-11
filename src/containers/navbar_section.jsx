@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { HashLink as Link } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
-import { toggleNavbarSection } from '../actions/index';
+import { toggleNavbarSection as toggleNavbarSectionAction } from '../actions/index';
 
 import NavbarSubSections from './navbar_sub_sections';
 
 class NavbarSection extends Component {
   handleClick = () => {
-    const { activeNavbarSection, section } = this.props;
-
-    if (activeNavbarSection === section) {
-      this.props.toggleNavbarSection(null);
-    } else {
-      this.props.toggleNavbarSection(section);
-    }
+    const { activeNavbarSection, section, toggleNavbarSection } = this.props;
+    toggleNavbarSection(activeNavbarSection === section ? null : section);
   }
 
   render() {
-    const { section, subSections, selectedSection } = this.props;
+    const {
+      section,
+      subSections,
+      selectedSection,
+      activeNavbarSection
+    } = this.props;
+
     return (
       <li key={section}>
-        <div onClick={this.handleClick} className="nav-link section-link">{section}</div>
+        <button type="button" onClick={this.handleClick} className="nav-link section-link">{section}</button>
         <NavbarSubSections
           section={section}
           subSections={subSections}
           selectedSection={selectedSection}
-          isOpen={this.props.activeNavbarSection === section} />
+          isOpen={activeNavbarSection === section} />
       </li>
     );
   }
@@ -42,7 +42,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    toggleNavbarSection: toggleNavbarSection
+    toggleNavbarSection: toggleNavbarSectionAction
   }, dispatch);
 }
 
