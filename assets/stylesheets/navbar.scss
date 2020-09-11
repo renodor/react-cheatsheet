@@ -11,8 +11,9 @@
     .navbar-sub-sections {
       height: 0;
       overflow: hidden;
-      transition: height .5s ease;
+      transition: height .35s ease;
       .nav-sub-links {
+        display: none;
         max-height: 55vh;
         overflow-y: scroll;
         &::-webkit-scrollbar {
