@@ -20,18 +20,21 @@ import sections from './data/sections';
 
 // Reducers
 import subsectionsReducer from './reducers/sub_sections_reducer';
+import navbarReducer from './reducers/navbar_reducer';
 
 // eslint-disable-next-line arrow-body-style
 const identityReducer = (state = null) => state;
 
 const reducers = combineReducers({
   sections: identityReducer,
-  subSections: subsectionsReducer
+  subSections: subsectionsReducer,
+  activeNavbarSection: navbarReducer
 });
 
 const initialState = {
   sections,
-  subSections: {}
+  subSections: {},
+  activeNavbarSection: Object.keys(sections)[0]
 };
 
 // Middlewares

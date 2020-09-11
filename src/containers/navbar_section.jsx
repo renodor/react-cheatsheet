@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { HashLink as Link } from 'react-router-hash-link';
 import { connect } from 'react-redux';
+
+import { toggleNavbarSection } from '../actions/index';
 
 import NavbarSubSections from './navbar_sub_sections';
 
 class NavbarSection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false
-    };
-  }
-
   handleClick = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+    const { activeNavbarSection, section } = this.props;
+
+    if (activeNavbarSection === section) {
+      this.props.toggleNavbarSection(null);
+    } else {
+      this.props.toggleNavbarSection(section);
+    }
   }
 
   render() {
@@ -27,7 +27,7 @@ class NavbarSection extends Component {
           section={section}
           subSections={subSections}
           selectedSection={selectedSection}
-          isOpen={this.state.isOpen} />
+          isOpen={this.props.activeNavbarSection === section} />
       </li>
     );
   }
@@ -35,8 +35,15 @@ class NavbarSection extends Component {
 
 function mapStateToProps(state) {
   return {
-    sections: state.sections
+    sections: state.sections,
+    activeNavbarSection: state.activeNavbarSection
   };
 }
 
-export default connect(mapStateToProps)(NavbarSection);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    toggleNavbarSection: toggleNavbarSection
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarSection);

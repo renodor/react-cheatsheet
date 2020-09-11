@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 
 class NavbarSubSections extends Component {
+  componentDidMount() {
+    const { isOpen } = this.props;
+    if (isOpen) {
+      this.navSubLinks.parentNode.style = `height: ${this.navSubLinks.clientHeight}px`;
+    }
+  }
+
   componentDidUpdate() {
     const { isOpen } = this.props;
     if (isOpen) {
