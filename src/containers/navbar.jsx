@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { HashLink as Link } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
-import NavbarSubSections from './navbar_sub_sections';
+import NavbarSection from './navbar_section';
 
 class Navbar extends Component {
+
   render() {
     const { sections, selectedSection } = this.props;
     return (
@@ -13,13 +13,12 @@ class Navbar extends Component {
           <ul>
             {Object.keys(sections).map((section) => {
               return (
-                <li key={section}>
-                  <Link className="nav-link section-link" to={`/${section}`}>{`${section}`}</Link>
-                  <NavbarSubSections
-                    section={section}
-                    subSections={sections[section]}
-                    selectedSection={selectedSection} />
-                </li>
+                <NavbarSection
+                  key={section}
+                  section={section}
+                  subSections={sections[section]}
+                  selectedSection={selectedSection}
+                />
               );
             })}
           </ul>

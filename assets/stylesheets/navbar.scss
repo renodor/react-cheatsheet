@@ -12,8 +12,11 @@
       height: 0;
       overflow: hidden;
       transition: height .35s ease;
+      &.active {
+        display: block;
+      }
       .nav-sub-links {
-        display: none;
+        // display: none;
         max-height: 55vh;
         overflow-y: scroll;
         &::-webkit-scrollbar {
@@ -38,6 +41,8 @@
     .section-link {
       padding: 20px;
       text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
     }
     .sub-section-link {
       padding: 10px 30px;
