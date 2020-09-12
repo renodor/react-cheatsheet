@@ -34,16 +34,18 @@ class SubSections extends Component {
     const subSectionsArray = Array.from(subSections);
     const sectionNameCapitalized = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
     const SubSectionContent = this.subSectionsMapping[sectionNameCapitalized];
-
     return (
-      subSectionsArray.map((subSection) => {
-        return (
-          <div key={subSection} id={subSection} className="sub-section">
-            <h2 className="sub-section-title">{subSection}</h2>
-            <SubSectionContent subSectionName={subSection} />
-          </div>
-        );
-      })
+      <div id="main" className={`section ${sectionName}-container`}>
+        <h1>{sectionName}</h1>
+        {subSectionsArray.map((subSection) => {
+          return (
+            <div key={subSection} id={subSection} className="sub-section">
+              <h2 className="sub-section-title">{subSection}</h2>
+              <SubSectionContent subSectionName={subSection} />
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }

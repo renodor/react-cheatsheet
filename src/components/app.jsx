@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navbar from '../containers/navbar';
-import Section from './section';
+import Section from '../containers/section';
 
 const App = ({ match }) => {
   return (
