@@ -1,9 +1,23 @@
-<p><samp>var</samp> : variable. Scope is global or locall to an entire function (regardless of block scope)</p>
-<p><samp>let</samp> : variable that can be reassigned. Limited to the scope of a the block statement</p>
-<p><samp>const</samp> : variablethat can't be reassigned. (But value it holds can change, for example if its an object)</p>
+<p>In JS an Array is defined with the <samp>[]</samp> notation:  <samp>const hobbies = ['surf', 'teuf', 'sex']</samp> (here it is 3 strings but it can be all sorts of elements)</p>
+<p><b>Index:</b> you can then use each elements of an arrays calling its index. The first one have the index "0": <samp>hobbies[1]</samp> >> will return "teuf"
+<p><b>Length:</b> return the number of elements in the array. <samp>hobbies.length</samp> == 3
+<p>(Btw you can use the same logic to return letters of a string: <samp>'renodor'[2]</samp> >> will return "n")</p>
+<p><b>COmon array functions</b></p>
+<ul>
+  <li><samp>.push(x)</samp> : add the value x at the end of the array</li>
+  <li><samp>.pop()</samp> : remove the last element of the array (doesn't take any argument, will only remove the last element)</li>
+  <li><samp>.shift()</samp> : remove the first element of the array (doesn't take any argument, will only remove the first element)</li>
+  <li><samp>.unshift(x)</samp> : add the value x at the beginning of an array</li>
+  <li><samp>.indexOf(x)</samp> : return the index of the <b>first</b> element x found in the array. (return -1 if the value is not present)</li>
+  <li><samp>.splice(x, 1)</samp> : remove the element at the x position</li>
+  <li><samp>.splice(x, y, z)</samp> > : x = where to start removing/relacing elements. y = how many elements to remove. z = element to add. So for <samp>.splice(x, y, 'item1', 'item2')</samp> > if y = 0, it will just add the 2 'items' to the array. And if y = 1, it will replace 1 element etc...)</li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
 
-<p><b>Tips:</b> <samp>x = x + 1</samp> can also be written : <samp>x += 1</samp>
-<br>Same for <samp>-=</samp>, <samp>*=</samp>, <samp>/=</samp>
-<br>Same for <samp>++</samp>, <samp>--</samp>, <samp>//</samp>, <samp>**</samp> it means adding, subtract, divise or multiply by 1
 
-<p><b>String Interpolation:</b> to insert a variable within a string without using the "+". You need to wrap your string with backticks: <samp>`</samp> and interpolate code with <samp>${}</samp></p>
