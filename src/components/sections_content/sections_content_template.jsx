@@ -6,7 +6,7 @@ import PrismCode from '../prism_code';
 const language = 'language';
 
 const code = {
-  subSection: ''
+  variable: ''
 };
 
 const SectionName = ({ subSectionName }) => {
@@ -14,8 +14,9 @@ const SectionName = ({ subSectionName }) => {
     case 'sub-section-name': {
       return (
         <div>
-          <p>Hello Sub section1</p>
-          <samp>"inline-code"</samp>
+          <p><samp>var</samp> : variable. Scope is global or locall to an entire function (regardless of block scope)</p>
+          <p><samp>let</samp> : variable that can be reassigned. Limited to the scope of a the block statement</p>
+          <p><samp>const</samp> : variablethat can't be reassigned. (But value it holds can change, for example if its an object)</p>
           <PrismCode code={code.subSection} language={language} />
         </div>
       );
