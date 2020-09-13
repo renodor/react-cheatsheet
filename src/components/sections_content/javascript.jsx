@@ -185,7 +185,7 @@ const Javascript = ({ subSectionName }) => {
           <p><b>Index:</b> you can then use each elements of an arrays calling its index. The first one have the index "0": <samp>hobbies[1]</samp> >> will return "teuf"</p>
           <p><b>Length:</b> return the number of elements in the array. <samp>hobbies.length</samp> == 3</p>
           <p>(Btw you can use the same logic to return letters of a string: <samp>'renodor'[2]</samp> >> will return "n")</p>
-          <p><b>COmon array functions</b></p>
+          <p><b>Comon array functions:</b></p>
           <ul>
             <li><samp>.push(x)</samp> : add the value x at the end of the array</li>
             <li><samp>.pop()</samp> : remove the last element of the array (doesn't take any argument, will only remove the last element)</li>
@@ -193,7 +193,23 @@ const Javascript = ({ subSectionName }) => {
             <li><samp>.unshift(x)</samp> : add the value x at the beginning of an array</li>
             <li><samp>.indexOf(x)</samp> : return the index of the <b>first</b> element x found in the array. (return -1 if the value is not present)</li>
             <li><samp>.splice(x, 1)</samp> : remove the element at the x position</li>
-            <li><samp>.splice(x, y, z)</samp> > : x = where to start removing/relacing elements. y = how many elements to remove. z = element to add. So for <samp>.splice(x, y, 'item1', 'item2')</samp> > if y = 0, it will just add the 2 'items' to the array. And if y = 1, it will replace 1 element etc...)</li>
+            <li><samp>.splice(x, y, z)</samp> : x = where to start removing/replacing elements. y = how many elements to remove. z = element to add (can have more than one). <u>Ex:</u>
+              <ul>
+                <li><samp>.splice(0, 0, 'a', 'b')</samp> : will add 'a' and 'b' at the beginning of array</li>
+                <li><samp>.splice(0, 1, 'a', 'b')</samp> : will add 'a' at the beginning of array and replace first element of array with 'b'</li>
+                <li><samp>.splice(0, 2, 'a', 'b')</samp> : will replace first element of array with 'a' and 2nd element of array with 'b'</li>
+              </ul>
+            </li>
+            <li><samp>.slice(x, y)</samp> : return only a part of the array. Starts with the elment with index x (included) and stops at the element with index y (not included). It doesn't modify the original array, it just return a shorter copy. (Ex: <samp>array1 = ['pomme', 'bannane', 'fraise', 'chocolat'].slice(1, 3)</samp> will return <samp>['banane', 'fraise']</samp>)</li>
+            <li>.<samp>.join()</samp> : return a string with the concatenate elements of the array separated by comas. Can take an argument that specifies how to separate the elements of array: <u>Ex:</u>
+              <ul>
+                <li><samp>.join('')</samp> : nothing between elements of array</li>
+                <li><samp>.join(' ')</samp> : a space between elements of array</li>
+                <li><samp>.join('-')</samp> : a dash between elements of array</li>
+              </ul>
+            </li>
+            <li><samp>array1.concat(array2)</samp> : return a new array with concatenate values of both arrays (don't modify original arrays, create a new one)</li>
+            <li><samp>'renodor'.trim()</samp> : remove space before and after a string (not an array method but...)</li>
           </ul>
         </div>
       );
