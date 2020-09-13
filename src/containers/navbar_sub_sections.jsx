@@ -18,6 +18,10 @@ class NavbarSubSections extends Component {
     }
   }
 
+  cleanSubSectionName = (subSectionName) => {
+    return subSectionName.replace(/-/g, ' ');
+  }
+
   render() {
     const { section, subSections } = this.props;
     return (
@@ -26,7 +30,7 @@ class NavbarSubSections extends Component {
           {subSections.map((subSection) => {
             return (
               <li key={subSection}>
-                <Link className="nav-link sub-section-link" to={`/${section}#${subSection}`}>{subSection}</Link>
+                <Link className="nav-link sub-section-link" to={`/${section}#${subSection}`}>{this.cleanSubSectionName(subSection)}</Link>
               </li>
             );
           })}

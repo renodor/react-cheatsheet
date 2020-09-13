@@ -29,6 +29,10 @@ class SubSections extends Component {
     Javascript
   };
 
+  cleanSubSectionName = (subSectionName) => {
+    return subSectionName.replace(/-/g, ' ');
+  }
+
   render() {
     const { sectionName, subSections } = this.props;
     const subSectionsArray = Array.from(subSections);
@@ -40,7 +44,7 @@ class SubSections extends Component {
         {subSectionsArray.map((subSection) => {
           return (
             <div key={subSection} id={subSection} className="sub-section">
-              <h2 className="sub-section-title">{subSection}</h2>
+              <h2 className="sub-section-title">{this.cleanSubSectionName(subSection)}</h2>
               <SubSectionContent subSectionName={subSection} />
             </div>
           );
