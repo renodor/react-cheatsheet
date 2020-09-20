@@ -125,7 +125,7 @@ const variableA = functionA; // >> You do it without parenthesis;`,
 const fruits = ['pommes', 'poires', 'oranges', 'kiwi']
 
 fruits.forEach(fruit => {
-  console.log(\`- #{fruit}\`);
+  console.log(\`- $\{fruit}\`);
 });`,
 
   map: `
@@ -202,6 +202,204 @@ const spaceship = {
   'Fuel Type': 'Avocado Oil',
   homePlanet: 'Earth',
   disabled: true
+};`,
+
+  objectLoop: `
+const crew = {
+  captain: 'Lily',
+  'chief officer': 'Dan',
+  medic: 'Clem',
+  translator: 'Patrick'
+}
+
+for (let crewMember in crew) {
+  console.log(\`$\{crewMember}: $\{crew[crewMember]}\`);
+}`,
+
+  thisKw: `
+const robot = {
+  model: '1E78V2',
+  energyLevel: 100,
+  provideInfo() {
+    return \`I am $\{this.model} and my current energy level is $\{this.energyLevel}.\`
+  }
+};
+
+console.log(robot.provideInfo());`,
+
+  privacy: `
+const bankAccount = {
+ _amount: 1000
+};`,
+
+  getter: `
+const person = {
+  _firstName: 'John',
+  _lastName: 'Doe',
+  get fullName() {
+    if (this._firstName && this._lastName) {
+      return \`$\{this._firstName} $\{this._lastName}\`;
+    } else {
+      return 'Missing a first name or a last name.';
+    }
+  }
+};
+
+// to call the getter method:
+person.fullName; // outputs 'John Doe'`,
+
+  setter: `
+const person = {
+  _age: 37,
+  set age(newAge) {
+    if (typeof newAge === 'number') {
+      this._age = newAge;
+    } else {
+      console.log('You must assign a number to age');
+    }
+  }
+};
+
+// to use the setter method:
+person.age = 40; // now console.log(person._age); will outputs 40`,
+
+  factoryFunctions: `
+const monsterFactory = (name, age, energySource, catchPhrase) => {
+  return {
+    name: name,
+    age: age,
+    energySource: energySource,
+    scare() {
+      console.log(catchPhrase);
+    }
+  }
+};`,
+
+  createFactoryFunction: `
+const ghost = monsterFactory('Ghouly', 251, 'ectoplasm', 'BOO!');
+
+ghost.scare(); // outputs 'BOO!'`,
+
+  factoryFunctionEs6: `
+const monsterFactory = (name, age) => {
+  return {
+    name,
+    age
+  }
+};`,
+
+  destructuredAssignment: `
+const vampire = {
+   name: 'Dracula',
+   residence: 'Transilvania',
+   preference: {
+    day: 'stay inside',
+    night: 'satisfy appetite'
+  }
+};
+
+const residence = vampire.residence;
+console.log(residence); // will print 'Transilvania'`,
+
+  destructuredAssignment2: `
+const {residence} = vampire;
+console.log(residence); // will print 'Transilvania'`,
+
+  class: `
+let halley = {
+  _name: 'Halley',
+  _behavior: 0,
+
+  get name() {
+    return this._name;
+  },
+
+  get behavior() {
+    return this._behavior;
+  },
+
+  incrementBehavior() {
+    this._behavior++;
+  }
+};`,
+
+  class2: `
+class Dog {
+  constructor(name) {
+    this._name = name;
+    this._behavior = 0;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get behavior() {
+    return this._behavior;
+  }
+
+  incrementBehavior() {
+    this._behavior++;
+  }
+};`,
+
+  classInstance: `
+const halley = new Dog('Halley');
+
+// It will create this object:
+Dog {
+_name: 'Halley',
+_behavior: 0
+}`,
+
+  inheritance: `
+class Animal {
+  constructor(name) {
+    this._name = name;
+    this._behavior = 0;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get behavior() {
+    return this._behavior;
+  }
+
+  incrementBehavior() {
+    this._behavior++;
+  }
+};`,
+
+  childClass: `
+class Cat extends Animal {
+  constructor(name, usesLitter) {
+    super(name);
+    this._usesLitter = usesLitter;
+  }
+};`,
+
+  superKw: `
+class Primary extends School {
+  constructor(name, numberOfStudents, pickupPolicy) {
+    super(name, 'primary', numberOfStudents);
+    this._pickupPolicy = pickupPolicy;
+  }
+};`,
+
+  staticMethod: `
+class Animal {
+  constructor(name) {
+    this._name = name;
+    this._behavior = 0;
+  }
+
+  static generateName() {
+    const names = ['Angel', 'Spike', 'Buffy', 'Willow', 'Tara'];
+    const randomNumber = Math.floor(Math.random()*5);
+    return names[randomNumber];
+  }
 };`
 };
 
@@ -304,7 +502,7 @@ const Javascript = ({ subSectionName }) => {
           <p><b>Index:</b> you can then use each elements of an array calling its index. The first one have the index "0": <samp>hobbies[1]</samp> >> will return "teuf"</p>
           <p><b>Length:</b> return the number of elements in the array. <samp>hobbies.length</samp> == 3</p>
           <p>(Btw you can use the same logic to return letters of a string: <samp>'renodor'[2]</samp> >> will return "n")</p>
-          <p><b>Common array functions:</b></p>
+          <p><b>Common built-in array methods:</b></p>
           <ul>
             <li><samp>.push(x)</samp> : add the value x at the end of the array</li>
             <li><samp>.pop()</samp> : remove the last element of the array (doesn't take any argument, will only remove the last element)</li>
@@ -472,6 +670,99 @@ const Javascript = ({ subSectionName }) => {
           </ul>
           <p>It will modify your object like that:</p>
           <PrismCode code={code.passByReference3} language={language} />
+          <p><b>Object loop</b> : You can't use a normal loop on objects (because object key-value pairs are not in order). So you have to use <samp>for...in</samp> loop.</p>
+          <u>Ex:</u>
+          <PrismCode code={code.objectLoop} language={language} />
+          <p>Will outputs:</p>
+          <ul>
+            <li>"captain: Lily"</li>
+            <li>"chief officer: Dan"</li>
+            <li>"medic: Clem"</li>
+            <li>"translator: Patrick"</li>
+          </ul>
+          <p><b>"This" KW</b>: when you define a method inside an object an that this function call properties of this same object, you have to use the <samp>this</samp> kw, otherwise the scope of the function doesn't allows you to access the property:</p>
+          <PrismCode code={code.thisKw} language={language} />
+          <p>Without the this kw, the <samp>provideInfo()</samp> function doesn't work because it can't access <samp>model</samp> and <samp>energyLevel</samp>.</p>
+          <p><b>WARNING:</b> the <samp>this</samp> kw doesn't work the same way, with arrow functions. Because arrow function already have an inherent this which is the one of the global scope. So you can't use <samp>this</samp> with arrow functions inside objects.</p>
+          <p><b>Privacy: </b> In JS there is no built-in privacy for objects. So there is a naming convention to signal that a property is not supposed to be altered:</p>
+          <PrismCode code={code.privacy} language={language} />
+          <p><b>Getters:</b> You use the "get" functions inside an object to perform more complex operations inside your object. (It is like a normal method property with a <samp>get</samp> before function name). It allows you to :</p>
+          <ul>
+            <li>Access and perform actions on the data of the object</li>
+            <li>Using conditional <samp>if...else</samp> inside your object</li>
+            <li>Access properties of the object, using <samp>this</samp> kw</li>
+          </ul>
+          <p><b>Tips:</b></p>
+          <ul>
+            <li>get (and set) methods can't have the same name than a property. So a good practice is to put a "_" before the property names</li>
+            <li>When calling a get method, no need to put parenthesis (it is like accessing a property)</li>
+          </ul>
+          <u>Ex:</u>
+          <PrismCode code={code.getter} language={language} />
+          <p><b>Setters Methods</b> work exactly like getter methods but allows you to reassign values of existing properties within an object:</p>
+          <ul>
+            <li>getters allows you to "get" (access) values within an object</li>
+            <li>setters allows you to "set" (change, modify, reassign) values within an object</li>
+          </ul>
+          <u>Ex:</u>
+          <PrismCode code={code.setter} language={language} />
+          <p><b>Factory functions:</b> represent the "structure" of an object. You use it when you want to create a lot of similar objects. You create a factory function that have the « property » structure of the object you want to create. For that you need to create a function that « return » an object. And you pass your object properties as your function arguments. And then by calling this function and passing it arguments, you create a new object.</p>
+          <p><u>Ex:</u> this is a factory function to create a monster</p>
+          <PrismCode code={code.factoryFunctions} language={language} />
+          <p>Then you can create a new monster only by calling the function:</p>
+          <PrismCode code={code.createFactoryFunction} language={language} />
+          <p>Since ES6 you have a shortcut. Because the key and the value of the proprerties where always the same, you can simplify and write only the key, like that:</p>
+          <PrismCode code={code.factoryFunctionEs6} language={language} />
+          <p><b>Destructured assignment:</b> is a shortcut that allows you to extract the property of an object to put it in a variable. Normally you would do like that:</p>
+          <PrismCode code={code.destructuredAssignment} language={language} />
+          <p>But to save you some keystrokes you can put the name of the property inside {} directly as the name of the variable like that: </p>
+          <PrismCode code={code.destructuredAssignment2} language={language} />
+          <p><b>Common built-in object methods:</b></p>
+          <ul>
+            <li><samp>Object.keys(my_object)</samp> : will return an array with all the keys of my_object</li>
+            <li><samp>Object.entries(my_object)</samp> : will return an array with all the entries (key + value) my_object</li>
+            <li><samp>Object.assign(new_properties, my_object)</samp> : will return a new object that have the same properties of my_object + the new properties. (Or will modify those properties if they were already in my_object</li>
+          </ul>
+        </div>
+      );
+    }
+    case 'classes': {
+      return (
+        <div>
+          <p>Classes are tool to quickly produce similar objects. Classes are like "templates" used to create objects.</p>
+          <p>For example if you have this object:</p>
+          <PrismCode code={code.class} language={language} />
+          <p>You can create this class to build the same type of objects:</p>
+          <PrismCode code={code.class2} language={language} />
+          <p>And then you can create new objects thanks to the class. It is called <b>"create an instance"</b>. Like that:</p>
+          <PrismCode code={code.classInstance} language={language} />
+          <p>Details of how to build a class:</p>
+          <ul>
+            <li>By convention class names are capitalize and CamelCase</li>
+            <li>You need a <b>constructor method</b>. You will invoke it every time you create a new instance of the class</li>
+            <li>Inside the <samp>constructor()</samp> method you use the <samp>this</samp> kw (to refers to an instance of this class)</li>
+            <li>You can't include comas between your different methods (only synthax difference with an object)</li>
+            <li>You need to use the <samp>new</samp> kw to create an instance of a class</li>
+          </ul>
+          <p><b>Inheritance:</b> when you have several similar classes you can create a "parent" class that will share the same properties and methods that its children classes. The children classes will have the same properties and methods but you can also add new ones.</p>
+          <p>So if we take our last example (dog creation). We can actually create a parent <samp>Animal</samp> class, like that:</p>
+          <PrismCode code={code.inheritance} language={language} />
+          <p>And after that create a child <samp>Cat</samp> class, that will have the same <samp>name</samp> and <samp>behavior</samp> properties, but also a new one called <samp>usesLitter</samp> :</p>
+          <PrismCode code={code.childClass} language={language} />
+          <p>So to create a child class you need:</p>
+          <ul>
+            <li>The <samp>extend</samp> kw. That makes the parent class available inside the child class</li>
+            <li>The <samp>super</samp> kw. That calls the constructor of the parent class. You need it for the property that have an argument (To be able to pass this argument to the child class). Otherwise you don't need to even define the property, each child class automatically have the properties (and methods) of its parents. You <b>always</b> have to call the <samp>super</samp> properties before the ones specific to the child class. (Always use the <samp>super</samp> kw before the <samp>this</samp> kw)</li>
+          </ul>
+          <p><b>Tips:</b> if you have several properties with arguments that need to be called in the parent class by the <samp>super</samp> KW, you all put it in the SAME super kw (not several ones). Like that:</p>
+          <PrismCode code={code.superKw} language={language} />
+          <p><b>Static Methods:</b> Sometimes you will want a class to have methods that aren't available in individual instances, but that you can call directly on the class itself. (They are similar to class methods in Ruby)</p>
+          <p>To create a static method you need to use the <samp>static</samp> kw like that:</p>
+          <PrismCode code={code.staticMethod} language={language} />
+          <p>We create a static method that return a random name when called. Because of the <samp>static</samp> kw we can only access this method by appending it to the <samp>Animal</samp> class.</p>
+          <p>So you can call the <samp>generateName</samp> method like that : <samp>Animal.generateName()</samp></p>
+          <p>But if you create instances of <samp>Animal</samp> (or child classes), for example : <samp>const tyson = new Animal('Tyson')</samp></p>
+          <p>Then you can't do that : <samp>tyson.generateName()</samp> >> It will return TypeError</p>
         </div>
       );
     }

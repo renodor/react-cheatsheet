@@ -1,36 +1,36 @@
 <div>
-  <p>In JS an Object is defined with the <samp>{ }</samp> notation : <samp>let spaceship = {};</samp></p>
-  <p>Objects are used to store data thanks to key/value pairs (called properties). Properties can be anything (string, number, functions etc...)</p>
-  <PrismCode code={code.object} language={language} />
-  <p>You then access properties with the .dot operator: <samp>spaceship.color</samp> >>> will return <samp>silver</samp></p>
-  <p>Or with brackets: <samp>spaceship['Fuel Type']</samp> (You have to use brackets actually if the property name has a space, a number or a special character)</p>
-  <p>If you call a property that doesn't existe, it returns <samp>undefined</samp></p>
-  <p>You can also add, modify or delete properties:</p>
+  <p>Classes are tool to quickly produce similar objects. Classes are like "templates" used to create objects.</p>
+  <p>For example if you have this object:</p>
+  <PrismCode code={code.class} language={language} />
+  <p>You can create this class to build the same type of objects:</p>
+  <PrismCode code={code.class2} language={language} />
+  <p>And then you can create new objects thanks to the class. It is called <b>"create an instance"</b>. Like that:</p>
+  <PrismCode code={code.classInstance} language={language} />
+  <p>Details of how to build a class:</p>
   <ul>
-    <li><samp>spaceship.type = 'alien'</samp> > If the property "type" exists, it will be modified. Otherwise it will be created</li>
-    <li><samp>delete spaceship.mission</samp> > Will delete "mission" property</li>
+    <li>By convention class names are capitalize and CamelCase</li>
+    <li>You need a <b>constructor method</b>. You will invoke it every time you create a new instance of the class</li>
+    <li>Inside the <samp>constructor()</samp> method you use the <samp>this</samp> kw (to refers to an instance of this class)</li>
+    <li>You can't include comas between your different methods (only synthax difference with an object)</li>
+    <li>You need to use the <samp>new</samp> kw to create an instance of a class</li>
   </ul>
-  <p>When you store a function inside an object, you call it a method:</p>
+  <p><b>Inheritance:</b> when you have several similar classes you can create a "parent" class that will share the same properties and methods that its children classes. The children classes will have the same properties and methods but you can also add new ones.</p>
+  <p>So if we take our last example (dog creation). We can actually create a parent <samp>Animal</samp> class, like that:</p>
+  <PrismCode code={code.inheritance} language={language} />
+  <p>And after that create a child <samp>Cat</samp> class, that will have the same <samp>name</samp> and <samp>behavior</samp> properties, but also a new one called <samp>usesLitter</samp> :</p>
+  <PrismCode code={code.inheritance2} language={language} />
+  <p>So to create a child class you need:</p>
   <ul>
-    <li>A property is what an object <b>has</b></li>
-    <li>A method is what an object <b>does</b></li>
+    <li>The <samp>extend</samp> kw. That makes the parent class available inside the child class</li>
+    <li>The <samp>super</samp> kw. That calls the constructor of the parent class. You need it for the property that have an argument (To be able to pass this argument to the child class). Otherwise you don't need to even define the property, each child class automatically have the properties (and methods) of its parents. You <b>always</b> have to call the <samp>super</samp> properties before the ones specific to the child class. (Always use the <samp>super</samp> kw before the <samp>this</samp> kw)</li>
   </ul>
-  <p>When you add a method to an object, the value of the property is an anonymus function:</p>
-  <PrismCode code={code.objectWithMethod} language={language} />
-  <p>Or shorter like that:</p>
-  <PrismCode code={code.objectWithMethod2} language={language} />
-  <p>To call a method inside an object you also use the .dot operator, with the function name and parenthesis: <samp>alienShip.invade();</samp></p>
-  <p>You can nest objects within objects (pass an object as a parameter of an higher object). And you can then call nested objects with a serie of .dot operators: <samp>spaceship.nanoelectronics['back-up'].battery;</samp></p>
-  <p><b>Pass by Reference:</b> is the fact of modifiying an object property directly via a function.</p>
-  <p>First you define your object:</p>
-  <PrismCode code={code.passByReference} language={language} />
-  <p>Then you create functions that will modify/add a property to this objec:</p>
-  <PrismCode code={code.passByReference2} language={language} />
-  <p>Then if you call those functions on your objects:</p>
-  <ul>
-    <li><samp>greenEnergy(spaceship);</samp></li>
-    <li><samp>remomtelyDisable(spaceship);</samp></li>
-  </ul>
-  <p>It will modify your object like that:</p>
-  <PrismCode code={code.passByReference2} language={language} />
+  <p><b>Tips:</b> if you have several properties with arguments that need to be called in the parent class by the <samp>super</samp> KW, you all put it in the SAME super kw (not several ones). Like that:</p>
+  <PrismCode code={code.inheritanceSuperKw} language={language} />
+  <p><b>Static Methods:</b> Sometimes you will want a class to have methods that aren't available in individual instances, but that you can call directly from the class. (They are similar to class methods in Ruby)</p>
+  <p>To create a static method you need to use the static kw like that:</p>
+  <PrismCode code={code.staticMethod} language={language} />
+  <p>We create a static method that return a random name when called. Because of the <samp>static</samp> kw we can only access this method by appending it to the <samp>Animal</samp> class.</p>
+  <p>So you can call the <samp>generateName</samp> method like that : <samp>Animal.generateName()</samp></p>
+  <p>But if you create instances of <samp>Animal</samp> (or child classes), for example : const tyson = new Animal('Tyson');</p>
+  <p>Then you can't do that : <samp>tyson.generateName()</samp> >> It will return TypeError</p>
 </div>
