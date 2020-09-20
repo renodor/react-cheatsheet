@@ -1,0 +1,36 @@
+<div>
+  <p>In JS an Object is defined with the <samp>{ }</samp> notation : <samp>let spaceship = {};</samp></p>
+  <p>Objects are used to store data thanks to key/value pairs (called properties). Properties can be anything (string, number, functions etc...)</p>
+  <PrismCode code={code.object} language={language} />
+  <p>You then access properties with the .dot operator: <samp>spaceship.color</samp> >>> will return <samp>silver</samp></p>
+  <p>Or with brackets: <samp>spaceship['Fuel Type']</samp> (You have to use brackets actually if the property name has a space, a number or a special character)</p>
+  <p>If you call a property that doesn't existe, it returns <samp>undefined</samp></p>
+  <p>You can also add, modify or delete properties:</p>
+  <ul>
+    <li><samp>spaceship.type = 'alien'</samp> > If the property "type" exists, it will be modified. Otherwise it will be created</li>
+    <li><samp>delete spaceship.mission</samp> > Will delete "mission" property</li>
+  </ul>
+  <p>When you store a function inside an object, you call it a method:</p>
+  <ul>
+    <li>A property is what an object <b>has</b></li>
+    <li>A method is what an object <b>does</b></li>
+  </ul>
+  <p>When you add a method to an object, the value of the property is an anonymus function:</p>
+  <PrismCode code={code.objectWithMethod} language={language} />
+  <p>Or shorter like that:</p>
+  <PrismCode code={code.objectWithMethod2} language={language} />
+  <p>To call a method inside an object you also use the .dot operator, with the function name and parenthesis: <samp>alienShip.invade();</samp></p>
+  <p>You can nest objects within objects (pass an object as a parameter of an higher object). And you can then call nested objects with a serie of .dot operators: <samp>spaceship.nanoelectronics['back-up'].battery;</samp></p>
+  <p><b>Pass by Reference:</b> is the fact of modifiying an object property directly via a function.</p>
+  <p>First you define your object:</p>
+  <PrismCode code={code.passByReference} language={language} />
+  <p>Then you create functions that will modify/add a property to this objec:</p>
+  <PrismCode code={code.passByReference2} language={language} />
+  <p>Then if you call those functions on your objects:</p>
+  <ul>
+    <li><samp>greenEnergy(spaceship);</samp></li>
+    <li><samp>remomtelyDisable(spaceship);</samp></li>
+  </ul>
+  <p>It will modify your object like that:</p>
+  <PrismCode code={code.passByReference2} language={language} />
+</div>

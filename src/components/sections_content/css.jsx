@@ -452,7 +452,7 @@ const Css = ({ subSectionName }) => {
           <p>So <samp>grid-area: 2 / 3 / 4 / span 5;</samp> >>> means this item will start at row 2 and end at row 4. It will start at column 3 and take 5 column space.</p>
           <p><b>Grid template areas:</b> <samp>grid-template-areas</samp> property allows you to name sections of your webpage to use it as values of a grid.</p>
           <u>Example:</u>
-          <PrismCode code={code.gridExampleHtml} language='markup' />
+          <PrismCode code={code.gridExampleHtml} language="markup" />
           <PrismCode code={code.gridExampleCss} language={language} />
           <p>With this code you build the following grid:</p>
           <ul>
