@@ -587,7 +587,97 @@ myPromises
   })
   .catch((rejectionReason) => {
     console.log(rejectionReason);
-  });`
+  });`,
+
+  async: `
+async function myFunc() {
+  // Function body here
+};
+
+myFunc();
+
+// or with arrow function:
+const myFunc = async () => {
+  // Function body here
+};
+
+myFunc();`,
+
+  asyncVsPromise: `
+function asyncFuncExample(num){
+  return new Promise((resolve, reject) => {
+    if (num === 0){
+      resolve('zero');
+    } else {
+      resolve('not zero');
+    }
+  })
+}`,
+
+  asyncVsPromise2: `
+async function asyncFuncExample(num) {
+  if (num === 0) {
+    return 'zero';
+  } else {
+    return 'not zero';
+  }
+};`,
+
+  await: `
+async function asyncFuncExample(){
+  let resolvedValue = await myPromise();
+  console.log(resolvedValue);
+}
+
+asyncFuncExample(); // outputs: I am resolved now!`,
+
+  awaitChain: `
+function nativePromiseVersion() {
+  returnsFirstPromise()
+  .then((firstValue) => {
+    console.log(firstValue);
+    return returnsSecondPromise(firstValue);
+  })
+  .then((secondValue) => {
+    console.log(secondValue);
+  });
+}`,
+
+  awaitChain2: `
+async function asyncAwaitVersion() {
+  let firstValue = await returnsFirstPromise();
+  console.log(firstValue);
+  let secondValue = await returnsSecondPromise(firstValue);
+  console.log(secondValue);
+}`,
+
+  tryCatch: `
+async function usingTryCatch() {
+  try {
+    let resolveValue = await asyncFunction('thing that will fail');
+    let secondValue = await secondAsyncFunction(resolveValue);
+  } catch (err) {
+    // Catches any errors in the try block
+    console.log(err);
+  }
+}
+
+usingTryCatch();`,
+
+  independentPromises: `
+async function concurrent() {
+  const firstPromise = firstAsyncThing();
+  const secondPromise = secondAsyncThing();
+  console.log(await firstPromise, await secondPromise);
+}`,
+
+  awaitPromiseAll: `
+async function asyncPromAll() {
+  const resultArray = await Promise.all([asyncTask1(), asyncTask2(), asyncTask3(), asyncTask4()]);
+  for (let i = 0; i < resultArray.length; i++){
+    console.log(resultArray[i]);
+  }
+}`
 };
 
 const Javascript = ({ subSectionName }) => {
@@ -1041,11 +1131,72 @@ const Javascript = ({ subSectionName }) => {
             <li>We invoke a second <samp>then()</samp> to handle the logic of the second promise</li>
             <li>Inside that second <samp>then()</samp> we have a success handler which will log the second promise's resolved value to the console.</li>
           </ul>
+          <p>If you want to handle failure, you just put a <samp>catch()</samp> method chained after the last <samp>then()</samp>. It will be executed if any of the promise reject. (But you won't know which one...)</p>
           <p><b>2 common mistakes:</b></p>
           <ul>
             <li>Nesting promises instead of chaining them: puting the 2nd <samp>then()</samp> inside the success handler of the first promise</li>
             <li>Forgetting to return a promise. If we don't <samp>return</samp> anything inside the first <samp>then()</samp>, the second <samp>then()</samp> will just handle the logic of the first promise. (It is like if we didn't have the first <samp>then()</samp>)</li>
           </ul>
+          <p><b>Promise.all()</b> : is a way to handle multiple promise without caring about the order. <samp>Promise.all()</samp> accepts an array of promises as its argument and returns a single promise. That single promise will settle in one of two ways:</p>
+          <ul>
+            <li>If every promise in the argument fulfills > <samp>Promise.all()</samp> will resolve with an array containing the resolved value from each promise in the argument array</li>
+            <li>If any promise from the argument array rejects > <samp>Promise.all()</samp> will immediately reject with the reject value of the promise that rejected</li>
+          </ul>
+          <PrismCode code={code.promiseAll} language={language} />
+          <p><b>To sum up about promises:</b></p>
+          <ul>
+            <li>Promises are JavaScript objects that represent the eventual result of an asynchronous operation</li>
+            <li>Promises can be in one of three states: pending, fulfilled, or rejected</li>
+            <li>A promise is settled if it is either fulfilled or rejected</li>
+            <li>We construct a promise by using the <samp>new</samp> keyword and passing an executor function to the promise constructor method (<samp>new Promise(executorFunction)</samp>)</li>
+            <li>We use <samp>then()</samp> with a success handler callback containing the logic for what should happen if a promise fulfills</li>
+            <li>We use <samp>catch()</samp> with a failure handler callback containing the logic for what should happen if a promise rejects</li>
+            <li>Promise composition enables us to write complex, asynchronous code that is still readable. We do this by chaining multiple <samp>then()</samp> and <samp>catch()</samp></li>
+            <li>To use promise composition correctly, we have to remember to <b>return</b> promises constructed within a <samp>then()</samp></li>
+            <li>We should chain multiple promises rather than nesting them</li>
+            <li>We can handle multiple promises at the same time with the <samp>Promise.all()</samp> method</li>
+          </ul>
+        </div>
+      );
+    }
+    case 'async-await': {
+      return (
+        <div>
+          <p>Since ES8, <samp>async…await</samp> was introduced and allows a better readability and scalability of promises. <samp>async</samp> kw is used to write function that handle asynchronous actions. <samp>async</samp> kw allows to creates functions that return a Promise:</p>
+          <PrismCode code={code.async} language={language} />
+          <p>Async functions always return a promise. It will return in 3 possible ways:</p>
+          <ul>
+            <li>If there is nothing returned, it will return a promise with a fulfilled value of undefined</li>
+            <li>If there is a non-promise value returned, it will return a promise fulfilled to that value</li>
+            <li>If a promise is returned it will simply return that promise</li>
+          </ul>
+          <p>So, a normal promise written like that:</p>
+          <PrismCode code={code.asyncVsPromise} language={language} />
+          <p>Can be written with the <samp>async</samp> kw like that:</p>
+          <PrismCode code={code.asyncVsPromise2} language={language} />
+          <p><b>Await:</b> Without the <samp>await</samp> kw, an async function don't do much. The <samp>await</samp> kw can only be used inside an async function. It returns the resolved value of a promise. <samp>await</samp> will pauses the execution of the async function until the desired promise is settled.</p>
+          <u>Ex:</u>
+          <PrismCode code={code.await} language={language} />
+          <ul>
+            <li>Inside <samp>asyncFuncExample()</samp> we use <samp>await</samp> to pause our execution until <samp>myPromise()</samp> is settled</li>
+            <li>We moreover assign <samp>myPromise()</samp> resolved value to the variable <samp>resolvedValue</samp></li>
+            <li>Then we log <samp>resolvedValue</samp> to the console</li>
+            <li>(The <samp>resolvedValue</samp> of <samp>myPromise</samp> is "I am resolved now!")</li>
+          </ul>
+          <p>It is particulary usefull when you do dependent promises (a serie of asynchronous action).</p>
+          <p>Indeed, with native promises you will do a chain of <samp>then()</samp> functions. Like that:</p>
+          <PrismCode code={code.awaitChain} language={language} />
+          <p>Whereas with <samp>async…wait</samp>:</p>
+          <PrismCode code={code.awaitChain2} language={language} />
+          <p><b>Try...Catch:</b> When <samp>catch()</samp> is used with a long promise chain, there is no indication of where in the chain the error was thrown. This make debugging challenging.</p>
+          <p>With <samp>async…await</samp>, we use the <samp>try…catch</samp> statements for error handling:</p>
+          <PrismCode code={code.tryCatch} language={language} />
+          <p>Here we will "try" what is in the body of the <samp>try</samp> kw. If any of the promised will reject, the catch <samp>body</samp> will be executed, with the <samp>err</samp> argument being the reject value of the promise that was rejected.</p>
+          <p><b>Handling Independent Promises:</b> If we have several independent promises that we need to await there is a trick. Indeed, we don't want to wait promise1 to be solved, then promise2 to be solved, and then do our resolution…</p>
+          <p>We want both promises to run (at the same time) and then, when both are solved, we want our resolution. We can do it like that:</p>
+          <PrismCode code={code.independentPromises} language={language} />
+          <p><b>Await Promise.all()</b> : We can also use the <samp>await Promise.all()</samp> to wait for multiple promises. Indeed <samp>Promise.all()</samp> takes an array of promises as argument and will resolve when all of these promise are fulfilled. So if we put await before it, it will await all those promises to be settled before going further.</p>
+          <PrismCode code={code.awaitPromiseAll} language={language} />
         </div>
       );
     }

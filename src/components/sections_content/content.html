@@ -1,32 +1,37 @@
 <div>
-  <p><b>Then() method:</b> asynchronous promise always have an initial state of pending and then will settle. We use the <samp>then()</samp> method to say to the program what to do after that : "I have a promise, here's what I want to happen when it settle". So <samp>then()</samp> will be fired only after the status of the promise has been settled (fulfilled or rejected).</p>
-  <p><samp>then()</samp> is a higher-order function, it takes two callback functions as arguments. We refer to these callbacks as handlers:</p>
+  <p>Since ES8, <samp>async…await</samp> was introduced and allows a better readability and scalability of promises. Async kw is used to write function that handle asynchronous actions. Async kw allows to creates functions that return a Promise:</p>
+  <PrismCode code={code.async} language={language} />
+  <p>Async functions always return a promise. It will return in 3 possible ways:</p>
   <ul>
-    <li>The first argument (the first handler) is called <b>onFulfilled</b> it is a success handler. It contains what to do when the promise fulfills</li>
-    <li>The second argument (the second handler) is called <b>onReject</b>, it is a failure handler. It contains what to do when the promse rejects</li>
+    <li>If there is nothing returned, it will return a promise with a fulfilled value of undefined</li>
+    <li>If there is a non-promise value returned, it will return a promise fulfilled to that value</li>
+    <li>If a promise is returned it will simply return that promise</li>
   </ul>
-  <p>We can invoke <samp>then()</samp> with one, both or zero handlers</p>
+  <p>So, a normal promise written like that:</p>
+  <PrismCode code={code.asyncVsPromise} language={language} />
+  Can be written with the <samp>async</samp> kw like that:
+  <PrismCode code={code.asyncVsPromise2} language={language} />
+  <p><b>Await:</b> Without the <samp>await</samp> kw, an async function don't do much. The <samp>await</samp> kw can only be used inside an async function. It returns the resolved value of a promise. <samp>await</samp> will pauses the execution of the async function until the desired promise is fulfilled.
   <u>Ex:</u>
-  <PrismCode code={code.then} language={language} />
-  <p>>>> Since <samp>prom</samp> resolves, <samp>handleSuccess()</samp> is invoked with prom‘s resolved value, 'Yay', so 'Yay' is logged to the console.</p>
-  <p>But with typical promise, we won't know whether a promise will resolve or reject, so we need to provide the logic for either case (the success handler and the failure handler):</p>
-  <PrismCode code={code.then2} language={language} />
-  <p><b>catch() method:</b> to write cleaner code we use the separation of concerns principle. So we separate our resolved logic from our rejected logic:</p>
-  <PrismCode code={code.catch} language={language} />
-  <p>And to be even cleaner we use the <samp>catch()</samp> function. It takes only one argument: the failure handler. It is like using a <samp>then()</samp> with only the failure handler:</p>
-  <PrismCode code={code.catch2} language={language} />
-  <p><b>Chaining multiple promises:</b> Chaining multiple promises is called composition:</p>
-  <PrismCode code={code.chainingPromises} language={language} />
+  <PrismCode code={code.await} language={language} />
   <ul>
-    <li>We invoke <samp>firstPromiseFunction()</samp> witch returns a promise</li>
-    <li>We invoke <samp>then()</samp> with an anonymous function as the success handler</li>
-    <li>Inside the success handler we return a new promise: <samp>secondPromiseFunction()</samp> with the first promise's resolved value as a parameter. (Probably that this second promise needed the result of the first promise to run. That is why we needed to wait for the first promise to settle before runing it)</li>
-    <li>We invoke a second <samp>then()</samp> to handle the logic of the second promise</li>
-    <li>Inside that second <samp>then()</samp> we have a success handler which will log the second promise's resolved value to the console.</li>
+    <li>Inside <samp>asyncFuncExample()</samp> we use <samp>await</samp> to pause our execution until <samp>myPromise()</samp> is resolved</li>
+    <li>We moreover assign <samp>myPromise()</samp> resolved value to the variable <samp>resolvedValue</samp></li>
+    <li>Then we log resolvedValue to the console</li>
+    <li>(The <samp>resolvedValue</samp> of <samp>myPromise</samp> is "I am resolved now!")</li>
   </ul>
-  <p><b>2 common mistakes:</b></p>
-  <ul>
-    <li>Nesting promises instead of chaining them: puting the 2nd <samp>then()</samp> inside the success handler of the first promise</li>
-    <li>Forgetting to return a promise. If we don't <samp>return</samp> anything inside the first <samp>then</samp>, the second <samp>then()</samp> will just handle the logic of the first promise. (It is like if we didn't have the first <samp>then()</samp>)</li>
-  </ul>
+  <p>It is particulary usefull when you do dependent promises (a serie of asynchronous action).</p>
+  <p>Indeed, with native promises you will do a chain of <samp>then()</samp> functions. Like that:</p>
+  <PrismCode code={code.awaitChain} language={language} />
+  <p>Whereas with <samp>async…wait</samp>:</p>
+  <PrismCode code={code.awaitChain2} language={language} />
+  <p><b>Try...Catch:</b> When <samp>catch()</samp> is used with a long promise chain, there is no indication of where in the chain the error was thrown. This make debugging challenging.</p>
+  <p>With <samp>async…await</samp>, we use the <samp>try…catch</samp> statements for error handling:</p>
+  <PrismCode code={code.tryCatch} language={language} />
+  <p>Here we will "try" what is in the body of the <samp>try</samp> kw. If any of the promised will reject, the catch <samp>body</samp> will be executed, with the <samp>err</samp> argument being the reject value of the promise that was rejected.</p>
+  <p><b>Handling Independent Promises:</b> If we have several independent promises that we need to await there is a trick. Indeed, we don't want to wait promise1 to be solved, then promise2 to be solved, and then do our resolution…</p>
+  <p>We want both promise to run (at the same time) and then, when both are solved, we want our resolution. We can do it like that:</p>
+  <PrismCode code={code.independentPromises} language={language} />
+  <p><b>Await Promise.all()</b> : We can also use the <samp>await Promise.all()</samp> to wait for multiple promises. Indeed <samp>Promise.all()</samp> takes an array of promiseq as argument and will resolve when all of these promise are fulfilled. So if we put await before it, it will await all those promises to be settled before going further.</p>
+  <PrismeCode code={code.awaitPromiseAll} language={language} />
 </div>
