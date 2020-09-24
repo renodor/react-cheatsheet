@@ -400,7 +400,97 @@ class Animal {
     const randomNumber = Math.floor(Math.random()*5);
     return names[randomNumber];
   }
-};`
+};`,
+
+  oldModuleExport: `
+// export:
+let Airplane = {};
+Airplane.myAirplane = "StarJet";
+
+module.exports = Airplane;
+
+// import:
+const Airplane = require('./1-airplane.js');
+
+function displayAirplane() {
+  console.log(Airplane.myAirplane);
+}
+
+displayAirplane();`,
+
+  oldModuleExportWrapped: `
+module.exports = {
+  myAirplane: 'CloudJest';
+};`,
+
+  exportDefault: `
+// export:
+let Menu = {};
+
+export default Menu;
+
+// import (notice you don't need curly brackets):
+import Menu from './menu';`,
+
+  namedExport: `
+// export
+let specialty = '';
+function isVegetarian() {
+};
+
+export { speciality, isVegetarian } from './menu';
+
+// import (notice you do need curly brackets):
+import { speciality, isVegetarian } from './menu';`,
+
+  wrappedExport: `
+export let specialty = '';
+export function isVegetarian() {
+};`,
+
+  exportAs: `
+let specialty = '';
+function isVegetarian() {
+};
+function isLowSodium() {
+};
+
+export { speciality as chefsSpecial, isVegetarian as is Veg, isLowSodium };`,
+
+  exportAll: `
+// export
+let specialty = '';
+function isVegetarian() {
+};
+function isLowSodium() {
+};
+
+export { speciality as chefsSpecial, isVegetarian as is Veg, isLowSodium };
+
+// import
+import * as Menu from './menu';
+
+Menu.chefsSpecial;
+Menu.isVeg();
+Menu.isLowSodium();`,
+
+  mixedExport: `
+// export
+let specialty = '';
+function isVegetarian() {
+};
+export function isLowSodium() {
+};
+function isGlutenFree() {
+};
+
+export { speciality as chefsSpecial, isVegetarian as is Veg };
+export default isGlutenFree;
+
+// import
+import { speciality, isVegetarian, isLowSodium } from './menu';
+
+import GlutenFree from './menu';`
 };
 
 const Javascript = ({ subSectionName }) => {
@@ -762,7 +852,44 @@ const Javascript = ({ subSectionName }) => {
           <p>We create a static method that return a random name when called. Because of the <samp>static</samp> kw we can only access this method by appending it to the <samp>Animal</samp> class.</p>
           <p>So you can call the <samp>generateName</samp> method like that : <samp>Animal.generateName()</samp></p>
           <p>But if you create instances of <samp>Animal</samp> (or child classes), for example : <samp>const tyson = new Animal('Tyson')</samp></p>
-          <p>Then you can't do that : <samp>tyson.generateName()</samp> >> It will return TypeError</p>
+          <p>Then you can't do that : <samp>tyson.generateName()</samp> >> It will return <samp>TypeError</samp></p>
+        </div>
+      );
+    }
+    case 'modules': {
+      return (
+        <div>
+          <p>In JS, Modules are reusable pieces of code that can be exported from one program and imported for use in another program.</p>
+          <p><b>The old way</b> to do it is:</p>
+          <ul>
+            <li>Export your code with the <samp>module.exports</samp> statement</li>
+            <li>Import your code with the <samp>require('file_path')</samp> function</li>
+          </ul>
+          <PrismCode code={code.oldModuleExport} language={language} />
+          <p>>>> You imported your module and assigned it to a local variable. You then can use all the methods and properties of your module within your file.</p>
+          <p>You can also wrap your data within the <samp>module.exports</samp> statement to directly export it:</p>
+          <PrismCode code={code.oldModuleExportWrapped} language={language} />
+          <p><b>The new way (ES6)</b> to do it is with <samp>export</samp> & <samp>import</samp> kws.</p>
+          <p><b>Export Default:</b> if you want to export your entire code into one module:</p>
+          <PrismCode code={code.exportDefault} language={language} />
+          <ul>
+            <li>You can have only one export default per file</li>
+            <li>The export name must be the name of the object you export (can be anything: a method, an object, a variable etc...)</li>
+            <li>The import name (<samp>Menu</samp> here) specifies the name of the variable to store the default export in (<b>this name is chosen and can be anything</b>). It is the name you will use to execute your module code</li>
+            <li>After the <samp>from</samp> kw you put the path of the file</li>
+          </ul>
+          <p><b>Named Exports and Imports:</b> in ES6 the <samp>export</samp> and <samp>import</samp> kw also allows you to export data through the use of variables. You can create variables, methods, objects or any data and export it with its specific name to be stored in its own variable:</p>
+          <PrismCode code={code.namedExport} language={language} />
+          <p>You can also write the <samp>export</samp> kw before your variable/function to export it directly:</p>
+          <PrismCode code={code.wrappedExport} language={language} />
+          <p><b>Export as & import as:</b> You can use the <samp>export as</samp> kw to change the name of the variable you want to export:</p>
+          <PrismCode code={code.exportAs} language={language} />
+          <p>After that you have to import it normally with the alias name you created</p>
+          <p>You can also <samp>import as</samp> to give an alias or change the alias of a variable when you import it</p>
+          <p><b>Import all</b>: you can import an entire module and give it a specific alias. It will store it in an object that you can use later on</p>
+          <PrismCode code={code.exportAll} language={language} />
+          <p>You can also combine and mix every export types together (default exports, named exports, direct on declaration export etc…):</p>
+          <PrismCode code={code.mixedExport} language={language} />
         </div>
       );
     }

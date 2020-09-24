@@ -1,0 +1,33 @@
+<div>
+  <p>In JS, Modules are reusable pieces of code that can be exported from one program and imported for use in another program.</p>
+  <p><b>The old way</b> to do it is:</p>
+  <ul>
+    <li>Export your code with the <samp>module.exports</samp> statement</li>
+    <li>Import your code with the <samp>require('file_path')</samp> function</li>
+  </ul>
+  <PrismCode code={code.oldModuleExport} language={language} />
+  <p>>>> This make that you imported your module and assigned it to a local variable. You then can use all the methods and properties of your module within your file.</p>
+  <p>You can also wrap your data within the <samp>module.exports</samp> statement to directly export it:</p>
+  <PrismCode code={code.oldModuleExportWrapped} language={language} />
+  <p><b>The new way (ES6)</b> to do it is with <b><samp>export</samp> & <samp>import</samp> kws</p>.
+  <p><b>Export Default:</b> ifyou want to export your entire code into one module</p>
+  <PrismCode code={code.exportDefault} language={language} />
+  <ul>
+    <li>You can have only one export default per file</li>
+    <li>The export name must be the name of the object you export (can be anything: a method, an object, a variable etc...)</li>
+    <li>The import name (<samp>Menu</samp> here) specifies the name of the variable to store the default export in (this name is chosen and can be anything). It is the name you will use to execute your module code</li>
+    <li>After the <samp>from</samp> kw you put the path of the file</li>
+  </ul>
+  <p><b>Named Exports and Imports:</b> in ES6 the <samp>export</samp> and <samp>import</samp> kw also allows you to export data through the use of variables. You can create variables, methods, objects or any data and export it with its specific name to be stored in its own variable:</p>
+  <PrismCode code={code.namedExport} language={language} />
+  <p>You can also write the <samp>export</samp> kw before your variable/function to export it directly:</p>
+  <PrismCode code={code.wrappedExport} language={language} />
+  <p><b>Export as & import as:</b> You can use the export as kw to change the name of the variable you want to export:</p>
+  <PrismCode code={code.exportAs} language={language} />
+  <p>After that you have to import it normally with the alias name you created</p>
+  <p>You can also <samp>import as</samp> to give an alias or change the alias of a variable when you import it</p>
+  <p><b>Import all</b>: you can import an entire module and give it a specific alias. It will store it in an object that you can use later on</p>
+  <PrismCode code={code.exportAll} language={language} />
+  <p>You can also combine and mix every export types together (default exports, named exports, direct on declaration export etc…):</p>
+  <PrismCode code={code.mixedExport} language={language} />
+</div>
