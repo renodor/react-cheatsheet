@@ -1,33 +1,32 @@
 <div>
-  <p>In JS, Modules are reusable pieces of code that can be exported from one program and imported for use in another program.</p>
-  <p><b>The old way</b> to do it is:</p>
+  <p><b>Then() method:</b> asynchronous promise always have an initial state of pending and then will settle. We use the <samp>then()</samp> method to say to the program what to do after that : "I have a promise, here's what I want to happen when it settle". So <samp>then()</samp> will be fired only after the status of the promise has been settled (fulfilled or rejected).</p>
+  <p><samp>then()</samp> is a higher-order function, it takes two callback functions as arguments. We refer to these callbacks as handlers:</p>
   <ul>
-    <li>Export your code with the <samp>module.exports</samp> statement</li>
-    <li>Import your code with the <samp>require('file_path')</samp> function</li>
+    <li>The first argument (the first handler) is called <b>onFulfilled</b> it is a success handler. It contains what to do when the promise fulfills</li>
+    <li>The second argument (the second handler) is called <b>onReject</b>, it is a failure handler. It contains what to do when the promse rejects</li>
   </ul>
-  <PrismCode code={code.oldModuleExport} language={language} />
-  <p>>>> This make that you imported your module and assigned it to a local variable. You then can use all the methods and properties of your module within your file.</p>
-  <p>You can also wrap your data within the <samp>module.exports</samp> statement to directly export it:</p>
-  <PrismCode code={code.oldModuleExportWrapped} language={language} />
-  <p><b>The new way (ES6)</b> to do it is with <b><samp>export</samp> & <samp>import</samp> kws</p>.
-  <p><b>Export Default:</b> ifyou want to export your entire code into one module</p>
-  <PrismCode code={code.exportDefault} language={language} />
+  <p>We can invoke <samp>then()</samp> with one, both or zero handlers</p>
+  <u>Ex:</u>
+  <PrismCode code={code.then} language={language} />
+  <p>>>> Since <samp>prom</samp> resolves, <samp>handleSuccess()</samp> is invoked with prom‘s resolved value, 'Yay', so 'Yay' is logged to the console.</p>
+  <p>But with typical promise, we won't know whether a promise will resolve or reject, so we need to provide the logic for either case (the success handler and the failure handler):</p>
+  <PrismCode code={code.then2} language={language} />
+  <p><b>catch() method:</b> to write cleaner code we use the separation of concerns principle. So we separate our resolved logic from our rejected logic:</p>
+  <PrismCode code={code.catch} language={language} />
+  <p>And to be even cleaner we use the <samp>catch()</samp> function. It takes only one argument: the failure handler. It is like using a <samp>then()</samp> with only the failure handler:</p>
+  <PrismCode code={code.catch2} language={language} />
+  <p><b>Chaining multiple promises:</b> Chaining multiple promises is called composition:</p>
+  <PrismCode code={code.chainingPromises} language={language} />
   <ul>
-    <li>You can have only one export default per file</li>
-    <li>The export name must be the name of the object you export (can be anything: a method, an object, a variable etc...)</li>
-    <li>The import name (<samp>Menu</samp> here) specifies the name of the variable to store the default export in (this name is chosen and can be anything). It is the name you will use to execute your module code</li>
-    <li>After the <samp>from</samp> kw you put the path of the file</li>
+    <li>We invoke <samp>firstPromiseFunction()</samp> witch returns a promise</li>
+    <li>We invoke <samp>then()</samp> with an anonymous function as the success handler</li>
+    <li>Inside the success handler we return a new promise: <samp>secondPromiseFunction()</samp> with the first promise's resolved value as a parameter. (Probably that this second promise needed the result of the first promise to run. That is why we needed to wait for the first promise to settle before runing it)</li>
+    <li>We invoke a second <samp>then()</samp> to handle the logic of the second promise</li>
+    <li>Inside that second <samp>then()</samp> we have a success handler which will log the second promise's resolved value to the console.</li>
   </ul>
-  <p><b>Named Exports and Imports:</b> in ES6 the <samp>export</samp> and <samp>import</samp> kw also allows you to export data through the use of variables. You can create variables, methods, objects or any data and export it with its specific name to be stored in its own variable:</p>
-  <PrismCode code={code.namedExport} language={language} />
-  <p>You can also write the <samp>export</samp> kw before your variable/function to export it directly:</p>
-  <PrismCode code={code.wrappedExport} language={language} />
-  <p><b>Export as & import as:</b> You can use the export as kw to change the name of the variable you want to export:</p>
-  <PrismCode code={code.exportAs} language={language} />
-  <p>After that you have to import it normally with the alias name you created</p>
-  <p>You can also <samp>import as</samp> to give an alias or change the alias of a variable when you import it</p>
-  <p><b>Import all</b>: you can import an entire module and give it a specific alias. It will store it in an object that you can use later on</p>
-  <PrismCode code={code.exportAll} language={language} />
-  <p>You can also combine and mix every export types together (default exports, named exports, direct on declaration export etc…):</p>
-  <PrismCode code={code.mixedExport} language={language} />
+  <p><b>2 common mistakes:</b></p>
+  <ul>
+    <li>Nesting promises instead of chaining them: puting the 2nd <samp>then()</samp> inside the success handler of the first promise</li>
+    <li>Forgetting to return a promise. If we don't <samp>return</samp> anything inside the first <samp>then</samp>, the second <samp>then()</samp> will just handle the logic of the first promise. (It is like if we didn't have the first <samp>then()</samp>)</li>
+  </ul>
 </div>

@@ -490,7 +490,104 @@ export default isGlutenFree;
 // import
 import { speciality, isVegetarian, isLowSodium } from './menu';
 
-import GlutenFree from './menu';`
+import GlutenFree from './menu';`,
+
+  promise: `
+const executorFunction = (resolve, reject) => {
+  if (someCondition) {
+      resolve('I resolved!');
+  } else {
+      reject('I rejected!');
+  }
+}
+const myFirstPromise = new Promise(executorFunction);`,
+
+  setTimeout: `
+const delayedHello = () => {
+  console.log('Hi! This is an asynchronous greeting!');
+};
+
+setTimeout(delayedHello, 2000);
+
+// delayedHello() will be invoked but with a delay of 2 seconds.`,
+
+  asynchronousPromise: `
+const returnPromiseFunction = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(( ) => {resolve('I resolved!')}, 1000);
+  });
+};
+
+const prom = returnPromiseFunction();`,
+
+  then: `
+const prom = new Promise((resolve, reject) => {
+  resolve('Yay!');
+});
+
+const handleSuccess = (resolvedValue) => {
+  console.log(resolvedValue);
+};
+
+prom.then(handleSuccess); // outputs 'Yay!'`,
+
+  then2: `
+let prom = new Promise((resolve, reject) => {
+  let num = Math.random();
+  if (num < .5 ){
+    resolve('Yay!');
+  } else {
+    reject('Ohhh noooo!');
+  }
+});
+
+const handleSuccess = (resolvedValue) => {
+  console.log(resolvedValue);
+};
+
+const handleFailure = (rejectionReason) => {
+  console.log(rejectionReason);
+};
+
+prom.then(handleSuccess, handleFailure);`,
+
+  catch: `
+prom
+  .then((resolvedValue) => {
+    console.log(resolvedValue);
+  })
+  .then(null, (rejectionReason) => {
+    console.log(rejectionReason);
+  });`,
+
+  catch2: `
+prom
+  .then((resolvedValue) => {
+    console.log(resolvedValue);
+  })
+  .catch((rejectionReason) => {
+    console.log(rejectionReason);
+  });`,
+
+  chainingPromises: `
+firstPromiseFunction()
+.then((firstResolveVal) => {
+  return secondPromiseFunction(firstResolveVal);
+})
+.then((secondResolveVal) => {
+  console.log(secondResolveVal);
+});`,
+
+  promiseAll: `
+let myPromises = Promise.all([returnsPromOne(), returnsPromTwo(), returnsPromThree()]);
+
+myPromises
+  .then((arrayOfValues) => {
+    console.log(arrayOfValues);
+  })
+  .catch((rejectionReason) => {
+    console.log(rejectionReason);
+  });`
 };
 
 const Javascript = ({ subSectionName }) => {
@@ -890,6 +987,65 @@ const Javascript = ({ subSectionName }) => {
           <PrismCode code={code.exportAll} language={language} />
           <p>You can also combine and mix every export types together (default exports, named exports, direct on declaration export etc…):</p>
           <PrismCode code={code.mixedExport} language={language} />
+        </div>
+      );
+    }
+    case 'promises': {
+      return (
+        <div>
+          <p>Here an example of a promise construction:</p>
+          <PrismCode code={code.promise} language={language} />
+          <ul>
+            <li>We declare a variable: <samp>myFirstPromise</samp> that will store our promise</li>
+            <li>To create a new promise you use the promise constructor method <samp>Promise()</samp> with the <samp>new</samp> kw</li>
+            <li><samp>executorFunction()</samp> is passed to the constructor method and has two functions as parameters: <samp>resolve</samp> and <samp>reject</samp></li>
+            <li>If <samp>someCondition</samp> evaluates to true, we invoke <samp>resolve()</samp></li>
+            <li>If not we invoke <samp>reject()</samp></li>
+            <li>(Promises are objects)</li>
+          </ul>
+          <p>The executor function generally starts an asynchronous operation and dictates how the promise should be settled. So normally the <samp>resolve()</samp> and <samp>reject()</samp> functions aren't defined by the programmer. When the Promise constructor runs, JavaScript will pass its own <samp>resolve()</samp> and <samp>reject()</samp> functions into the executor function.</p>
+          <p><b>Promise states</b>: a promise is in one of these 3 states:</p>
+          <ul>
+            <li><b>pending:</b> when it is not settled yet</li>
+            <li><b>fullfiled:</b> when it settled and the operation was completed successfully (the <samp>resolve()</samp> function is executed)</li>
+            <li><b>rejected:</b> when it settled and the operation failed (the <samp>reject()</samp> function is executed)</li>
+          </ul>
+          <p><b>Asynchronicity example using setTimeout():</b> <samp>setTimeout()</samp> is a functions used to execute some code after a delay</p>
+          <PrismCode code={code.setTimeout} language={language} />
+          <p>Asynchronous JavaScript uses something called the <b>event-loop</b>. After two seconds, <samp>delayedHello()</samp> is added to a line of code <b>waiting to be run. Before it can run, any synchronous code from the program will run.</b> Next, any asynchronous code in front of it in the line will run. (This means it might be more than two seconds before <samp>delayedHello()</samp> is actually executed).</p>
+          <p><u>Ex:</u> of how you will use setTimeout() to construct asynchronous promise</p>
+          <PrismCode code={code.asynchronousPromise} language={language} />
+          <p>>>> We invoked <samp>returnPromiseFunction()</samp> wich return a promise. We assign that promise to the variable <samp>prom</samp>. <samp>prom</samp> will initially have a status of <b>"pending"</b>. (it hasn't settled yet). Then after 1 second it will settle and be <b>"fulfilled"</b>, and resolve with the message "I resolved!".</p>
+          <p><b>Then() method:</b> asynchronous promise always have an initial state of pending and then will settle. We use the <samp>then()</samp> method to say to the program what after it settled: "I have a promise, here's what I want to happen when it settle". So <samp>then()</samp> will be fired only after the status of the promise has been settled (fulfilled or rejected).</p>
+          <p><samp>then()</samp> is a higher-order function, it takes two callback functions as arguments. We refer to these callbacks as handlers:</p>
+          <ul>
+            <li>The first argument (the first handler) is called onFulfilled, it is a success handler. It contains what to do when the promise fulfills</li>
+            <li>The second argument (the second handler) is called onReject, it is a failure handler. It contains what to do when the promse rejects</li>
+          </ul>
+          <p>We can invoke <samp>then()</samp> with one, both or zero handlers</p>
+          <u>Ex:</u>
+          <PrismCode code={code.then} language={language} />
+          <p>>>> Since <samp>prom</samp> resolves, <samp>handleSuccess()</samp> is invoked with prom‘s resolved value, 'Yay', so 'Yay' is logged to the console.</p>
+          <p>But with typical promise, we won't know whether it will fulfill or reject, so we need to provide the logic for either case (the success handler and the failure handler):</p>
+          <PrismCode code={code.then2} language={language} />
+          <p><b>catch() method:</b> to write cleaner code we use the separation of concerns principle. So we separate our resolved logic from our rejected logic:</p>
+          <PrismCode code={code.catch} language={language} />
+          <p>And to be even cleaner we use the <samp>catch()</samp> function. It takes only one argument: the failure handler. It is like using a <samp>then()</samp> with only the failure handler:</p>
+          <PrismCode code={code.catch2} language={language} />
+          <p><b>Chaining multiple promises:</b> it is called composition:</p>
+          <PrismCode code={code.chainingPromises} language={language} />
+          <ul>
+            <li>We invoke <samp>firstPromiseFunction()</samp> witch returns a promise</li>
+            <li>We invoke <samp>then()</samp> with an anonymous function as the success handler</li>
+            <li>Inside the success handler we return a new promise: <samp>secondPromiseFunction()</samp> with the first promise's resolved value as a parameter. (Probably that this second promise needed the result of the first promise to run. That is why we needed to wait for the first promise to settle before runing it)</li>
+            <li>We invoke a second <samp>then()</samp> to handle the logic of the second promise</li>
+            <li>Inside that second <samp>then()</samp> we have a success handler which will log the second promise's resolved value to the console.</li>
+          </ul>
+          <p><b>2 common mistakes:</b></p>
+          <ul>
+            <li>Nesting promises instead of chaining them: puting the 2nd <samp>then()</samp> inside the success handler of the first promise</li>
+            <li>Forgetting to return a promise. If we don't <samp>return</samp> anything inside the first <samp>then()</samp>, the second <samp>then()</samp> will just handle the logic of the first promise. (It is like if we didn't have the first <samp>then()</samp>)</li>
+          </ul>
         </div>
       );
     }
