@@ -677,6 +677,104 @@ async function asyncPromAll() {
   for (let i = 0; i < resultArray.length; i++){
     console.log(resultArray[i]);
   }
+}`,
+
+  asyncExample: `
+console.log('First message!');
+setTimeout(() => {
+   console.log('This message will always run last...');
+}, 0);
+console.log('Second message!');`,
+
+  xhrGetRequest: `
+const xhr = new XMLHttpRequest();
+const url = 'https://api-to-call.com/endpoint'
+
+xhr.responseType = 'json';
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+  return xhr.response;
+  }
+}
+
+xhr.open('GET', url)
+xhr.send()`,
+
+  xhrPostRequest: `
+const xhr = new XMLHttpRequest();
+const url = 'https://api-to-call.com/endpoint'
+const data = JSON.stringify({id: '200'});
+
+xhr.responseType = 'json'
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    return xhr.response;
+  }
+}
+
+xhr.open('POST', url);
+xhr.send(data);`,
+
+  fetchGet: `
+fetch('https://api-to-call.com/endpoint').then((response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  throw new Error('Request failed!');
+},
+  (networkError) => {
+  console.log(networkError.message);
+})
+.then((jsonResponse) => {
+  return jsonResponse
+});`,
+
+  fetchPost: `
+fetch('https://api-to-call.com/endpoint', {
+  method: 'POST',
+  body: JSON.stringify({id: '200'})
+}).then((response) => {
+  if(response.ok) {
+    return response.json();
+  }
+  throw new Error('Request failed!');
+},
+(networkError) => {
+  console.log(networkError.message);
+})
+.then((jsonResponse) => {
+  return jsonResponse;
+});`,
+
+  fetchAsyncGet: `
+const getData = async () => {
+  try {
+    const response = await fetch('https://api-to-call.com/endpoint');
+    if(response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse
+    }
+    throw new Error('Request failed!')
+  } catch(error) {
+    console.log(error);
+  }
+};`,
+
+  fetchAsyncPost: `
+const getData = async () => {
+  try {
+    const response = await fetch('https://api-to-call.com/endpoint', {
+      method: 'POST',
+      body: JSON.stringify({id: 200})
+    });
+    if(response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse
+    }
+    throw new Error('Request failed!')
+  } catch(error) {
+    console.log(error);
+  }
 }`
 };
 
@@ -1197,6 +1295,49 @@ const Javascript = ({ subSectionName }) => {
           <PrismCode code={code.independentPromises} language={language} />
           <p><b>Await Promise.all()</b> : We can also use the <samp>await Promise.all()</samp> to wait for multiple promises. Indeed <samp>Promise.all()</samp> takes an array of promises as argument and will resolve when all of these promise are fulfilled. So if we put await before it, it will await all those promises to be settled before going further.</p>
           <PrismCode code={code.awaitPromiseAll} language={language} />
+        </div>
+      );
+    }
+    case 'http-requests': {
+      return (
+        <div>
+          <p>One of JavaScript's greatest assets is its non-blocking properties, or that it is an <b>asynchronous language</b>. It uses an event loop to handle asynchronous function calls: when a program is run, function calls are made and added to a stack. The functions that make requests that need to wait for servers to respond get sent to a separate queue. Once the stack has cleared, then the functions in the queue are executed.</p>
+          <u>Ex:</u>
+          <PrismCode code={code.asyncExample} language={language} />
+          <p>The first and second message are run from the stack. The one in <samp>setTimeout()</samp> is added to the queue so it will always run after the others. (Even if the <samp>setTimeout()</samp> is set to 0 milliseconds.</p>
+          <p><b>XHR Get Request:</b> the AJAX GET request allows you to retrieve data from a server.</p>
+          <p>Boilerplate of an AJAX GET request using an XMLHttpRequest:</p>
+          <PrismCode code={code.xhrGetRequest} language={language} />
+          <p><b>XHR Post Request:</b> The AJAX POST request allows you to send data to a server.</p>
+          <p>Boilerplate of an AJAX POST request using an XMLHttpRequest:</p>
+          <PrismCode code={code.xhrGetRequest} language={language} />
+          <p><b>Fetch Function:</b></p>
+          <ul>
+            <li>It creates a request object that contains relevant information that an API needs</li>
+            <li>It sends that request object to the API endpoint provided</li>
+            <li>It Returns a promise that ultimately resolves to a response object, which contains the status of the promise with information the API sent back</li>
+          </ul>
+          <p><b>Boilerplate of a fetch GET request:</b></p>
+          <PrismCode code={code.fetchGet} language={language} />
+          <ul>
+            <li>You call the <samp>fetch()</samp> function and pass the URL of your API request as an argument</li>
+            <li>You chain a <samp>then()</samp> method with an anonymous arrow function as its first argument (which is the "success handler")</li>
+            <li>This success callback function takes one parameter <samp>response</samp></li>
+            <li>Inside the response callback function you check if the ok property of response (<samp>response.ok</samp>) is truly (inside a if statement)</li>
+            <li>If it is truly you return <samp>response.json()</samp></li>
+            <li>Else, you will throw a new error message if <samp>response.ok</samp> is falsy</li>
+            <li>You add your second argument (which is the "failure hander") to your <samp>then()</samp> function. It will be a callback function that takes a single parameter networkError and log <samp>networkError.message</samp> to the console</li>
+            <li>You chain another <samp>then()</samp> method (that will be executed only if the first one has finished and doesn't throw an error)</li>
+            <li>You pass it a callback function that take <samp>jsonResponse</samp> as its parameter and return <samp>jsonResponse</samp></li>
+          </ul>
+          <p><b>Boilerplate of a fetch POST request:</b></p>
+          <PrismCode code={code.fetchPost} language={language} />
+          <p>It is similar to the GET request, only that the initial call takes two arguments: an endpoint and an object, instead of just one. In this object you have the verb and the body of the HTTP request. The body is the info you want to send to the server.</p>
+          <p><b>Fetch with Async and await KW</b>: you can also use <samp>async</samp>, <samp>await</samp>, <samp>try</samp> and <samp>catch</samp> kw with <samp>fetch()</samp> to use GET and POST XHR requests:</p>
+          <p><b>GET:</b></p>
+          <PrismCode code={code.fetchAsyncGet} language={language} />
+          <p><b>POST:</b></p>
+          <PrismCode code={code.fetchAsyncPost} language={language} />
         </div>
       );
     }

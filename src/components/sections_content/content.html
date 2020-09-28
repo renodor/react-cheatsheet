@@ -1,37 +1,37 @@
 <div>
-  <p>Since ES8, <samp>async…await</samp> was introduced and allows a better readability and scalability of promises. Async kw is used to write function that handle asynchronous actions. Async kw allows to creates functions that return a Promise:</p>
-  <PrismCode code={code.async} language={language} />
-  <p>Async functions always return a promise. It will return in 3 possible ways:</p>
-  <ul>
-    <li>If there is nothing returned, it will return a promise with a fulfilled value of undefined</li>
-    <li>If there is a non-promise value returned, it will return a promise fulfilled to that value</li>
-    <li>If a promise is returned it will simply return that promise</li>
-  </ul>
-  <p>So, a normal promise written like that:</p>
-  <PrismCode code={code.asyncVsPromise} language={language} />
-  Can be written with the <samp>async</samp> kw like that:
-  <PrismCode code={code.asyncVsPromise2} language={language} />
-  <p><b>Await:</b> Without the <samp>await</samp> kw, an async function don't do much. The <samp>await</samp> kw can only be used inside an async function. It returns the resolved value of a promise. <samp>await</samp> will pauses the execution of the async function until the desired promise is fulfilled.
+  <p>One of JavaScript's greatest assits is its non-blocking properties, or that it is an <b>asynchronous language</b>. It uses an event loop to handle asynchronous function calls: when a program is run, function calls are made and added to a stack. The functions that make requests that need to wait for servers to respond get sent to a separate queue. Once the stack has cleared, then the functions in the queue are executed.</p>
   <u>Ex:</u>
-  <PrismCode code={code.await} language={language} />
+  <PrismCode code={code.asyncExample} language={language} />
+  <p>The first and second message are run from the stack. The one in <samp>setTimeout()</samp> is added to the queue so it will always run after the others. (Even if the <samp>setTimeout()</samp> is set to 0 milliseconds.</p>
+  <p><b>XHR Get Request:</b> the AJAX GET request allows you to retrieve data from a server. Boilerplate of an AJAX GET request using an XMLHttpRequest:</p>
+  <PrismCode code={code.xhrGetRequest} language={language} />
+  <p><b>XHR Post Request:</b> The AJAX POST request allows you to send data to a server. Boilerplate of an AJAX POST request using an XMLHttpRequest:</p>
+  <PrismCode code={code.xhrGetRequest} language={language} />
+  <p><b>Fetch Function:</b></p>
   <ul>
-    <li>Inside <samp>asyncFuncExample()</samp> we use <samp>await</samp> to pause our execution until <samp>myPromise()</samp> is resolved</li>
-    <li>We moreover assign <samp>myPromise()</samp> resolved value to the variable <samp>resolvedValue</samp></li>
-    <li>Then we log resolvedValue to the console</li>
-    <li>(The <samp>resolvedValue</samp> of <samp>myPromise</samp> is "I am resolved now!")</li>
+    <li>It creates a request object that contains relevant information that an API needs</li>
+    <li>It sends that request object to the API endpoint provided</li>
+    <li>It Returns a promise that ultimately resolves to a response object, which contains the status of the promise with information the API sent back</li>
   </ul>
-  <p>It is particulary usefull when you do dependent promises (a serie of asynchronous action).</p>
-  <p>Indeed, with native promises you will do a chain of <samp>then()</samp> functions. Like that:</p>
-  <PrismCode code={code.awaitChain} language={language} />
-  <p>Whereas with <samp>async…wait</samp>:</p>
-  <PrismCode code={code.awaitChain2} language={language} />
-  <p><b>Try...Catch:</b> When <samp>catch()</samp> is used with a long promise chain, there is no indication of where in the chain the error was thrown. This make debugging challenging.</p>
-  <p>With <samp>async…await</samp>, we use the <samp>try…catch</samp> statements for error handling:</p>
-  <PrismCode code={code.tryCatch} language={language} />
-  <p>Here we will "try" what is in the body of the <samp>try</samp> kw. If any of the promised will reject, the catch <samp>body</samp> will be executed, with the <samp>err</samp> argument being the reject value of the promise that was rejected.</p>
-  <p><b>Handling Independent Promises:</b> If we have several independent promises that we need to await there is a trick. Indeed, we don't want to wait promise1 to be solved, then promise2 to be solved, and then do our resolution…</p>
-  <p>We want both promise to run (at the same time) and then, when both are solved, we want our resolution. We can do it like that:</p>
-  <PrismCode code={code.independentPromises} language={language} />
-  <p><b>Await Promise.all()</b> : We can also use the <samp>await Promise.all()</samp> to wait for multiple promises. Indeed <samp>Promise.all()</samp> takes an array of promiseq as argument and will resolve when all of these promise are fulfilled. So if we put await before it, it will await all those promises to be settled before going further.</p>
-  <PrismeCode code={code.awaitPromiseAll} language={language} />
+  <p><b>Boilerplate of a fetch GET request:</b></p>
+  <PrismCode code={code.fetchGet} language={language} />
+  <ul>
+    <li>You call the <samp>fetch()</samp> function and pass the URL of your API request as an argument</li>
+    <li>You chain a <samp>then()</samp> method with an anonymous arrow function as its first argument (which is the "success handler")</li>
+    <li>This success callback function takes one parameter <samp>response</samp></li>
+    <li>Inside the response callback function you check if the ok property of response (<samp>response.ok</samp>) is truly (inside a if statement)</li>
+    <li>If it is truly you return <samp>response.json()</samp></li>
+    <li>Else, you will throw a new error message if <samp>response.ok</samp> is falsy</li>
+    <li>You add your second argument (which is the "failure hander") to your <samp>then()</samp> function. It will be a callback function that takes a single parameter networkError and log <samp>networkError.message</samp> to the console</li>
+    <li>You chain another <samp>then()</samp> method (that will be executed only if the first one has finished and doesn't throw an error)</li>
+    <li>You pass it a callback function that take <samp>jsonResponse</samp> as its parameter and return <samp>jsonResponse</samp></li>
+  </ul>
+  <p><b>Boilerplate of a fetch POST request:</b></p>
+  <PrismCode code={code.fetchPost} language={language} />
+  <p>It is similar to the GET request, only that the initial call takes two arguments: an endpoint and an object, instead of just one. In this object you have the verb and the body of the HTTP request. The body is the info you want to send to the server.</p>
+  <p><b>Fetch with Async and await KW</b>: you can also use <samp>async</samp>, <samp>await</samp>, <samp>try</samp> and <samp>catch</samp> kw with <samp>fetch()</samp> to use GET and POST XHR requests:</p>
+  <p><b>GET:</b></p>
+  <PrismCode code={code.fetchAsyncGet} language={language} />
+  <p><b>POST:</b></p>
+  <PrismCode code={code.fetchAsyncPost} language={language} />
 </div>
